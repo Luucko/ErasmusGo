@@ -1,17 +1,17 @@
 # Plan for ErasmusGo project
 
-## **Step 1: Team Organization**
-Before starting work, ensure clarity on roles and responsibilities. In a team of three, you could divide as follows:
+## **Team Organization**
+To ensure clarification on roles and responsibilities, we devided our team into three roles:
 
-1. **Project Manager/Coordinator:** 
+1. **Lucas Viaene: Project Manager/Coordinator:** 
    - Manages the timeline, organizes sprints, and ensures everyone is on track.
    - Oversees documentation and merges everyone's work into a single report.
    
-2. **Developer/Tech Lead:**
+2. **Paul Blankenhorn: Developer/Tech Lead:**
    - Focuses on the mobile app’s coding and technical aspects.
    - Prepares diagrams like sequence diagrams and models closely tied to development.
 
-3. **UX/UI and Documentation Specialist:**
+3. **Bastien De Meulenaere: UX/UI and Documentation Specialist:**
    - Creates wireframes/mockups, diagrams, and user stories.
    - Supports documentation, testing, and any needed refinements.
 
