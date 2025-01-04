@@ -18,7 +18,23 @@ To ensure clarification on roles and responsibilities, we devided our team into 
 ---
 
 ## **User Stories**
-To help prioritizing and to define our work, we created user stories for the different roles our users could take up:
+To correctly define our work, we created user stories for the different roles our users could take up. Using the MoSCoW approach, we prioritize these user stories within our project scope:
+
+### **Must have**
+Essential to launch the app.
+- 
+
+
+### **Should have**
+Useful features.
+- 
+
+### **Could have**
+Nice-to-have features.
+
+### **Won’t have** (for now)
+Features you defer to later iterations.
+- 
 
 ### New Erasmus Student Role
 - As a new Erasmus student, I want to get in contact with my professors before attending the first lecture, so that I can clarify any doubts about the course. 
