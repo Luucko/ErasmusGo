@@ -17,19 +17,26 @@ To ensure clarification on roles and responsibilities, we devided our team into 
 
 ---
 
-## **Step 2: Define User Stories**
-**Yes, starting with User Stories is a great idea!** It will help prioritize and define your work. Write these using the template:
+## **User Stories**
+To help prioritizing and to define our work, we created user stories for the different roles our users could take up:
 
-- **As a [type of user], I want to [goal], so that I can [benefit].**
+### New Erasmus Student Role
+- As a new Erasmus student, I want to get in contact with my professors before attending the first lecture, so that I can clarify any doubts about the course. 
+- As a new Erasmus student, I want to locate classrooms on a map, so that I can find my classes easily. 
+- As a new Erasmus student, I want to be guided through the first steps I need to complete on campus, such as registering at the international office and activating my personal account, so that I can settle in quickly. 
 
-### Example User Stories for ErasmusGo:
-1. **As a new Erasmus student, I want to locate classrooms on a map, so that I can find my classes easily.**
-2. **As a student, I want to view a list of upcoming events, so I can participate and meet others.**
-3. **As a student, I want to access a calendar with school deadlines and meetings, so that I stay organized.**
-4. **As a student from another country, I want to find others from my country, so that I can connect with them.**
-5. **As a student, I want to recover my account if I forget my password, so that I can continue using the app.**
+### Studying Erasmus Student Role 
+-As a student, I want to view a list of upcoming events, so I can participate and meet others. 
+-As a student, I want to access a calendar with holidays and important dates, so that I stay organized. 
+-As a student from another country, I want to find others from my country, so that I can connect with them. 
+-As a non-native Portuguese-speaking student, I want to learn some basic Portuguese to survive and to receive information on how to learn more Portuguese. 
+-As a student, I want to find out how I can get to school using public transport, so I can plan my commute. 
+-As a student, I want to know what discounts I qualify for by being a student, so that I can save money. 
+-As a student, I want to recover my password if I forget it, so that I can regain access to my account without contacting an administrator. 
 
-Write down **10-15 stories** based on your use cases. This will act as the foundation for your functional requirements.
+### Administrator Role 
+- As an administrator, I want to be able to add new upcoming events, so that the Erasmus students can see them in their calendars. 
+- As an administrator, I want to be able to change a student’s information if necessary, so that the data remains accurate. 
 
 ---
 
