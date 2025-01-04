@@ -20,39 +20,28 @@ To ensure clarification on roles and responsibilities, we devided our team into 
 ## **User Stories**
 To correctly define our work, we created user stories for the different roles our users could take up. Using the MoSCoW approach, we prioritize these user stories within our project scope:
 
-### **Must have**
-Essential to launch the app.
-- 
-
-
-### **Should have**
-Useful features.
-- 
-
-### **Could have**
-Nice-to-have features.
-
-### **Won’t have** (for now)
-Features you defer to later iterations.
-- 
-
-### New Erasmus Student Role
-- As a new Erasmus student, I want to get in contact with my professors before attending the first lecture, so that I can clarify any doubts about the course. 
-- As a new Erasmus student, I want to locate classrooms on a map, so that I can find my classes easily. 
-- As a new Erasmus student, I want to be guided through the first steps I need to complete on campus, such as registering at the international office and activating my personal account, so that I can settle in quickly. 
-
-### Studying Erasmus Student Role 
--As a student, I want to view a list of upcoming events, so I can participate and meet others. 
--As a student, I want to access a calendar with holidays and important dates, so that I stay organized. 
--As a student from another country, I want to find others from my country, so that I can connect with them. 
--As a non-native Portuguese-speaking student, I want to learn some basic Portuguese to survive and to receive information on how to learn more Portuguese. 
--As a student, I want to find out how I can get to school using public transport, so I can plan my commute. 
--As a student, I want to know what discounts I qualify for by being a student, so that I can save money. 
--As a student, I want to recover my password if I forget it, so that I can regain access to my account without contacting an administrator. 
-
-### Administrator Role 
-- As an administrator, I want to be able to add new upcoming events, so that the Erasmus students can see them in their calendars. 
+### **Must have**: Essential to launch the app.
+- As a new Erasmus student, I want to be able to login to my personal account
 - As an administrator, I want to be able to change a student’s information if necessary, so that the data remains accurate. 
+
+### **Should have**: Useful features.
+- As a new Erasmus student, I want to be guided through the first steps I need to complete on campus, such as registering and activating my personal account, so that I can settle in quickly.
+- As a new Erasmus student, I want to get in contact with my professors before attending the first lecture, so that I can clarify any doubts about the course.
+- As a student, I want to access a calendar with holidays and important dates, so that I stay organized.
+- As a non-native Portuguese-speaking student, I want to learn some basic Portuguese to survive and to receive information on how to learn more Portuguese.
+- As a student, I want to find out how I can get to school using public transport, so I can plan my commute.
+- As an administrator, I want to be able to add new upcoming events, so that the Erasmus students can see them in their calendars. 
+
+
+### **Could have**: Nice-to-have features.
+- As a new Erasmus student, I want to locate classrooms on a map, so that I can find my classes easily.
+- As a student, I want to view a list of upcoming events, so I can participate and meet others.
+- As a student from another country, I want to find others from my country, so that I can connect with them.
+- As a student, I want to know what discounts I qualify for by being a student, so that I can save money.
+
+### **Won’t have** (for now): Features you defer to later iterations.
+- As a student, I want to recover my password if I forget it, so that I can regain access to my account without contacting an administrator.
+
 
 ---
 
