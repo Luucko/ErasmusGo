@@ -8,7 +8,7 @@ Develop a functional prototype with key features and prepare for a polished pres
 ## **Sprint Plan**  
 
 ### **Sprint 1: Initial Setup and Planning**  
-**Day 0 (Today): Initial Preparation**  
+**Day 0: Initial Preparation**  
 - **Goals:**  
   - Define project objectives, user stories, and use cases.  
   - Organize the team and assign roles:  
