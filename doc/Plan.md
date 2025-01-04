@@ -18,7 +18,7 @@ To ensure clarification on roles and responsibilities, we devided our team into 
 ---
 
 ## **User Stories**
-To correctly define our work, we created user stories for the different roles our users could take up. Using the MoSCoW approach, we prioritize these user stories within our project scope:
+To correctly define our work, we created user stories for the different stakeholders that could possibly use our application. Using the MoSCoW approach, we prioritize these user stories within our project scope:
 
 ### **Must have**: Essential to launch the app.
 - As a new Erasmus student, I want to be able to login to my personal account
@@ -41,33 +41,6 @@ To correctly define our work, we created user stories for the different roles ou
 
 ### **Won’t have** (for now): Features you defer to later iterations.
 - As a student, I want to recover my password if I forget it, so that I can regain access to my account without contacting an administrator.
-
-
----
-
-## **Step 3: Prioritize User Stories (Agile Style)**
-Use **MoSCoW prioritization**:
-- **Must have:** Essential to launch the app (e.g., maps, authentication, profile creation, etc.).
-- **Should have:** Useful features (e.g., events, language course info, etc.).
-- **Could have:** Nice-to-have features (e.g., list of discounts, public transportation info, etc.).
-- **Won’t have (for now):** Features you defer to later iterations.
-
-### Example Prioritization:
-#### Must Have:
-- Authentication and registration
-- User profile (name, photo, email)
-- Map of buildings and rooms
-- School calendar
-- First steps at the university (paperwork, student account)
-
-#### Should Have:
-- Events and meetings
-- Public transportation information
-- Language courses
-
-#### Could Have:
-- Discounts list
-- Connecting with students from the same country
 
 ---
 
