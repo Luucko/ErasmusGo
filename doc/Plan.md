@@ -51,7 +51,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Guide new students through essential steps like registration and account setup.  
 - **Preconditions**: Student has installed the app.  
 - **Main Flow**:
-  1. Student selects "First Steps" in the menu.
+  1. Student selects "How do I activate my account?" on the landing page.
   2. App guides the student through creating or activating their account.
 - **Postconditions**: Student has a working account and can login.
 
