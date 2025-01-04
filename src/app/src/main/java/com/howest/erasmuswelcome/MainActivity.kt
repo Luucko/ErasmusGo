@@ -17,10 +17,12 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         composable("home") {
                             //HomeScreen(navController = navController)
                         }
-                        composable("pokedex") {
+                        composable("calender") {
                             //PokeDex(navController = navController, user!!.name, dbHelper)
                         }
                     }
@@ -57,36 +59,49 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun MainScreen(navController: NavController) {
-    Scaffold(
-        topBar = {
-            CustomTopBar()
-        },
-        bottomBar = {
-            BottomNavigationBar()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = true,
+        drawerContent = {
+            SideMenu(navController = navController, drawerState = drawerState)
         }
-    ) { innerPadding ->
-        // Main content goes here
-        Box(modifier = Modifier.padding(innerPadding)) {
-            Greeting("Erasmus Student")
+    ) {
+        Scaffold(
+            topBar = {
+                CustomTopBar {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                }
+            },
+            bottomBar = {
+                BottomNavigationBar(navController)
+            }
+        ) { innerPadding ->
+            // Main content goes here
+            Box(modifier = Modifier.padding(innerPadding)) {
+                Greeting("Erasmus Student")
+            }
         }
     }
 }
 
 @Composable
-fun CustomTopBar() {
+fun CustomTopBar(onMenuClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(MaterialTheme.colorScheme.primary)
-            ,
+            .background(MaterialTheme.colorScheme.primary),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(onClick = { /* Handle navigation click */ }) {
+        IconButton(onClick = onMenuClick) {
             Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
         }
         Text(
@@ -100,13 +115,53 @@ fun CustomTopBar() {
     }
 }
 
+@Composable
+fun SideMenu(navController: NavController, drawerState: DrawerState) {
+    val scope = rememberCoroutineScope()
+
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .background(Color.LightGray)
+            .padding(16.dp)
+    ) {
+        Text("Menu", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(bottom = 16.dp))
+
+        val menuItems = listOf(
+            "Home" to "home",
+            "Info" to "info",
+            "Communicating with Teachers" to "teachers",
+            "Map of Buildings and Rooms" to "map",
+            "First Steps at University" to "first_steps",
+            "Student Account Setup" to "account_setup",
+            "Important Meetings" to "meetings",
+            "Events Together" to "events",
+            "School Calendar" to "calendar",
+            "Other Students Info" to "other_students",
+            "Language Info" to "language",
+            "Public Transportation" to "transport",
+            "Discount List" to "discounts"
+        )
+
+        menuItems.forEach { (title, route) ->
+            TextButton(onClick = {
+                scope.launch {
+                    drawerState.close()
+                }
+                navController.navigate(route)
+            }) {
+                Text(text = title, style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(navController: NavController) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primary
     ) {
-        IconButton(onClick = { /* Handle Home click */ }) {
+        IconButton(onClick = { navController.navigate("home") }) {
             Icon(
                 imageVector = Icons.Default.Home,
                 contentDescription = "Home",
@@ -114,7 +169,7 @@ fun BottomNavigationBar() {
             )
         }
         Spacer(modifier = Modifier.weight(1f, true))
-        IconButton(onClick = { /* Handle Map click */ }) {
+        IconButton(onClick = { navController.navigate("map") }) {
             Icon(
                 imageVector = Icons.Default.Menu,
                 contentDescription = "Map",
@@ -122,7 +177,7 @@ fun BottomNavigationBar() {
             )
         }
         Spacer(modifier = Modifier.weight(1f, true))
-        IconButton(onClick = { /* Handle Info click */ }) {
+        IconButton(onClick = { navController.navigate("info") }) {
             Icon(
                 imageVector = Icons.Default.Info,
                 contentDescription = "Info",
@@ -131,6 +186,9 @@ fun BottomNavigationBar() {
         }
     }
 }
+
+
+
 
 @Composable
 fun Greeting(name: String) {
