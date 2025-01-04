@@ -5,4 +5,4 @@ build/
 local.properties
 *.apk
 *.keystore
-app/google-services.json
+src/app/google-services.json
