@@ -60,7 +60,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Allow students to view teacher contact details.  
 - **Preconditions**: Student is logged into the application.  
 - **Main Flow**:
-  1. Student navigates to "Contact Teachers" section.
+  1. Student navigates to "Contact Teachers" section inside the "Communication" category.
   2. Application displays a list of teachers with their details (name, email, office number).
   3. Student clicks a teacher’s name to see additional information (optional).  
 - **Postconditions**: Student retrieves teacher’s contact details.  
@@ -71,7 +71,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Provide an accessible school calendar with important dates.  
 - **Preconditions**: Administrator has updated the calendar.  
 - **Main Flow**:
-  1. Student navigates to the "Calendar" section.
+  1. Student navigates to the "Academic Calendar" section inside the "Campus Information" category.
   2. App displays a calendar view with marked events and holidays.
   3. Student taps on a date to view details.  
 - **Postconditions**: Student views the calendar.
@@ -81,7 +81,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Help students find public transport options to campus.  
 - **Preconditions**: App has data on local transport routes.  
 - **Main Flow**:
-  1. Student accesses the "Public Transport" section.
+  1. Student accesses the "Public Transport" section inside the "Transportation & Discounts" category.
   2. App displays transport routes and schedules.  
 - **Postconditions**: Student plans their journey to campus.  
 
@@ -90,7 +90,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Provide resources for learning basic Portuguese.  
 - **Preconditions**: App is connected to external resources.  
 - **Main Flow**:
-  1. Student opens the "Learn Portuguese" section.
+  1. Student opens the "Learn Portuguese" section inside the "Learning & Events" category.
   2. App displays basic phrases and external links (e.g., to PracticePortuguese.com).  
 - **Postconditions**: Student gains access to Portuguese learning materials.  
 
@@ -99,7 +99,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Allow students to search for and locate specific classrooms or facilities on campus.  
 - **Preconditions**: Student accesses the application.  
 - **Main Flow**:
-  1. Student opens the campus map feature.
+  1. Student navigates to the "Map of Buildings and Rooms" section inside the "Campus Information" category.
   2. Student searches for a room or building.
   3. Application displays the location on a map with directions.  
 - **Postconditions**: Student views the desired location on the map.  
@@ -110,7 +110,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: View and register for upcoming events.  
 - **Preconditions**: Administrator has uploaded event information.  
 - **Main Flow**:
-  1. Student accesses the "Events" section.
+  1. Student accesses the "Upcoming Events & Activities" section inside the "Learning & Events" category.
   2. App displays a list of events with descriptions and dates.
   3. Student registers for an event.  
 - **Postconditions**: Student successfully registers for an event.  
@@ -120,7 +120,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Allow students to connect with peers from their home country.  
 - **Preconditions**: Student profile includes nationality.  
 - **Main Flow**:
-  1. Student accesses the "Find Peers" section.
+  1. Student accesses the "Find Peers" section inside the "Communication" category.
   2. App displays a list of students with the same nationality.
   3. Student selects a peer to view their profile.  
 - **Postconditions**: Student connects with another peer.  
@@ -130,7 +130,7 @@ Here’s a list of use cases, defined in detail.
 - **Goal**: Show a list of student discounts.  
 - **Preconditions**: Discounts are predefined in the database.  
 - **Main Flow**:
-  1. Student accesses the "Discounts" section.
+  1. Student accesses the "Student Discounts" section inside the "Transportation & Discounts" category.
   2. App displays a categorized list of discounts (e.g., food, transport, activities).  
 - **Postconditions**: Student views discount information.
 
