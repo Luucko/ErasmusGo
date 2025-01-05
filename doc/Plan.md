@@ -109,7 +109,7 @@ Develop a functional prototype with key features and prepare for a polished pres
 ### **Sprint 2 Checklist: Firebase Integration**  
 - [ ] Set up Firebase authentication (email/password).  
 - [ ] Create Firebase rules to ensure security (e.g., authenticated users only).  
-- [ ] Implement login, registration, and logout functionality.  
+- [ ] Implement login, and logout functionality.  
 - [ ] Test registration and login flows with sample users.  
 
 ---
