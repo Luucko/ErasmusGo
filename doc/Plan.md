@@ -20,9 +20,9 @@ Develop a functional prototype with key features and prepare for a polished pres
     - Initialize Firebase for authentication and database integration.  
 
 - **Deliverables:**  
-  - Completed project plan with defined objectives, user stories, and use cases.  
-  - Basic app structure with menu items visible.  
-  - Firebase configured and ready for integration.  
+  - Completed project plan with defined objectives, user stories, and use cases.
+  - Basic app structure with menu items visible.
+  - Firebase configured and ready for integration.
 
 ---
 
@@ -34,8 +34,8 @@ Develop a functional prototype with key features and prepare for a polished pres
   - Create basic user profiles in Firebase (fields: name, email, nationality).  
 
 - **Deliverables:**  
-  - Functional login and registration screens.  
-  - Users can log in, register, and log out successfully.  
+  - Functional login screen.  
+  - Users can log in, and log out successfully.  
 
 ---
 
