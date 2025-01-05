@@ -1,7 +1,7 @@
 # **Plan for ErasmusGo Project**  
 
 ## **Goal for the Next Six Days**  
-Develop a functional prototype with key features and prepare for a polished presentation.  
+Develop a functional prototype with key features, complete comprehensive documentation, and prepare a polished presentation.  
 
 ---
 
@@ -17,25 +17,27 @@ Develop a functional prototype with key features and prepare for a polished pres
     - Bastien De Meulenaere: UX/UI and Documentation Specialist  
   - Create project structure:  
     - Set up the app in Android Studio with a basic menu layout.  
-    - Initialize Firebase for authentication and database integration.  
+    - Initialize SQL database for authentication and data storage.  
+  - Begin wireframe and mockup development.  
 
 - **Deliverables:**  
-  - Completed project plan with defined objectives, user stories, and use cases.
-  - Basic app structure with menu items visible.
-  - Firebase configured and ready for integration.
+  - Completed project plan with objectives, user stories, and use cases.  
+  - Basic app structure with visible menu items.  
+  - SQL database initialized and linked to the project.  
+  - Initial wireframes/mockups created.  
 
 ---
 
-### **Sprint 2: Firebase Integration and Core Features**  
-**Day 1: Firebase Integration and Authentication**  
+### **Sprint 2: SQL Database Integration and Authentication**  
+**Day 1: User Authentication**  
 - **Goals:**  
-  - Implement user registration and login/logout functionality using Firebase.  
-  - Configure Firebase authentication and link it to the app's UI.  
-  - Create basic user profiles in Firebase (fields: name, email, nationality).  
+  - Set up the SQL database schema for user authentication and profiles (fields: ID, name, email, nationality, password hash).  
+  - Implement user registration, login, and password reset functionality.  
+  - Link authentication to the app’s UI.  
 
 - **Deliverables:**  
-  - Functional login screen.  
-  - Users can log in, and log out successfully.  
+  - SQL database with user authentication schema.  
+  - Functional login, registration, and password reset screens.  
 
 ---
 
@@ -44,115 +46,126 @@ Develop a functional prototype with key features and prepare for a polished pres
 - **Goals:**  
   - **Day 2:**  
     - Build the "School Calendar" feature:  
-      - Use Firebase to fetch and display calendar data.  
-      - Create a UI for displaying events and holidays.  
-      - Allow tapping on dates to view event details.  
-    - Start developing the "Campus Map" feature:  
-      - Create a basic UI for the map screen.  
+      - Store events and holidays in SQL.  
+      - Display calendar data in a user-friendly UI.  
+      - Enable tapping on dates to view event details.  
+    - Begin development of the "Campus Map" feature:  
+      - Design a basic UI for the map screen.  
   - **Day 3:**  
     - Complete the "Campus Map" functionality:  
-      - Add a search bar to locate buildings/classrooms.  
-      - Display selected rooms/buildings on the map with directions (if possible).  
+      - Implement a search bar to locate rooms/buildings.  
+      - Display directions or basic map navigation.  
 
 - **Deliverables:**  
-  - A working school calendar feature integrated with Firebase.  
-  - A functional campus map with a search feature for buildings/rooms.  
+  - Working "School Calendar" with data stored in SQL.  
+  - Functional "Campus Map" with a search feature.  
 
 ---
 
 ### **Sprint 4: Language, Transport, and Events**  
-**Day 4-5: Language Learning, Public Transport, and Events**  
+**Day 4-5: Additional Features and Documentation Progress**  
 - **Goals:**  
   - **Day 4:**  
     - Implement the "Learn Portuguese" feature:  
-      - Display a list of basic Portuguese phrases and external resources (e.g., links).  
+      - Display common phrases and external links.  
     - Develop the "Public Transport" feature:  
-      - Show transport options and basic schedules.  
+      - Display routes and schedules (hardcoded or from external APIs).  
+    - Continue documentation development:  
+      - Create wireframes, sitemap, and mockups.  
   - **Day 5:**  
-    - Create the "Events" feature:  
-      - Fetch and display events using Firebase.  
-      - Enable students to register for events and view their registrations.  
+    - Build the "Events" feature:  
+      - Store events in SQL and allow registration.  
+      - Display registered events in the user’s profile.  
+    - Finalize diagrams:  
+      - Domain model, class diagram, use case diagram with descriptions, and sequence diagrams.  
 
 - **Deliverables:**  
-  - A functional "Learn Portuguese" screen with external links.  
-  - Working "Public Transport" and "Events" features.  
+  - "Learn Portuguese" and "Public Transport" screens implemented.  
+  - Functional "Events" feature.  
+  - Comprehensive wireframes, sitemap, and diagrams.  
 
 ---
 
-### **Sprint 5: Refinement and Presentation Preparation**  
+### **Sprint 5: Refinement, Testing, and Presentation Preparation**  
 **Day 6: Final Touches and Presentation Prep**  
 - **Goals:**  
-  - Conduct user testing on all implemented features and fix major bugs.  
-  - Polish the app’s UI (icons, colors, consistency).  
-  - Create a polished Figma mockup for any incomplete features.  
+  - Conduct user testing to identify and fix bugs.  
+  - Polish the app’s UI (icons, colors, navigation).  
+  - Finalize all documentation:  
+    - Include screenshots of the app.  
+    - Ensure all diagrams (domain model, class, use case, and sequence) are complete.  
+    - Prepare a detailed project report with explanations of all features.  
   - Prepare a 5-minute presentation:  
-    - Highlight key features with screenshots and/or a live demo.  
-    - Include diagrams (context, ER, and sequence diagrams).  
+    - Highlight features with screenshots or a live demo.  
+    - Include diagrams in the presentation.  
 
 - **Deliverables:**  
-  - Bug-free, presentation-ready app with essential features.  
-  - Finalized presentation materials (slides, diagrams, demo).  
+  - Bug-free, presentation-ready app with polished UI.  
+  - Completed documentation package.  
+  - Finalized presentation slides.  
 
 ---
 
 ## **Detailed Checklist for Each Sprint**  
 
 ### **Sprint 1 Checklist: Initial Setup**  
-- [ ] Define user stories and use cases.  
-- [ ] Assign team roles and responsibilities.  
-- [ ] Set up the project in Android Studio.  
+- [x] Define user stories and use cases.  
+- [x] Assign team roles and responsibilities.  
+- [x] Set up the project in Android Studio.  
 - [ ] Implement basic menu structure in the app.  
-- [ ] Initialize Firebase for backend functionality.  
+- [ ] Initialize SQL database for backend functionality.  
+- [ ] Create initial wireframes and mockups.  
 
 ---
 
-### **Sprint 2 Checklist: Firebase Integration**  
-- [ ] Set up Firebase authentication (email/password).  
-- [ ] Create Firebase rules to ensure security (e.g., authenticated users only).  
-- [ ] Implement login, and logout functionality.  
-- [ ] Test registration and login flows with sample users.  
+### **Sprint 2 Checklist: SQL Database and Authentication**  
+- [ ] Design SQL schema for user authentication.  
+- [ ] Implement registration, login, and password reset flows.  
+- [ ] Test authentication features with sample users.  
 
 ---
 
 ### **Sprint 3 Checklist: Calendar and Maps**  
 **Calendar:**  
-- [ ] Create Firebase database structure for calendar events (e.g., date, title, description).  
-- [ ] Implement a calendar view UI.  
-- [ ] Enable users to view events for specific dates.  
+- [ ] Design SQL schema for calendar events.  
+- [ ] Implement calendar view and date selection functionality.  
+- [ ] Display event details on selection.  
 
 **Campus Map:**  
-- [ ] Develop a map screen layout.  
-- [ ] Add functionality to search for rooms/buildings.  
-- [ ] Test and refine the map search and display functionality.  
+- [ ] Develop a map UI layout.  
+- [ ] Add search functionality for rooms/buildings.  
+- [ ] Test map navigation and refine UI.  
 
 ---
 
-### **Sprint 4 Checklist: Language, Transport, and Events**  
+### **Sprint 4 Checklist: Additional Features and Documentation**  
 **Learn Portuguese:**  
-- [ ] Display a list of common phrases in Portuguese.  
-- [ ] Provide links to external resources for further learning.  
+- [ ] Display common phrases and external learning resources.  
 
 **Public Transport:**  
-- [ ] Fetch and display transport routes/schedules (hardcoded or external API).  
-- [ ] Ensure clear presentation of transport options for campus routes.  
+- [ ] Show routes and schedules clearly.  
 
 **Events:**  
-- [ ] Create Firebase structure for event data (e.g., title, date, description, attendees).  
-- [ ] Allow students to register for events and view a list of their registrations.  
+- [ ] Store events in SQL database.  
+- [ ] Implement event registration and display functionality.  
+
+**Documentation:**  
+- [ ] Create wireframes, sitemap, and mockups.  
+- [ ] Finalize domain model, class, use case, and sequence diagrams.  
 
 ---
 
-### **Sprint 5 Checklist: Refinement and Presentation Prep**  
-- [ ] Review all features for functionality and fix major bugs.  
-- [ ] Update UI for consistency and polish (e.g., navigation, icons, branding).  
-- [ ] Finalize diagrams (context, ER, sequence).  
-- [ ] Prepare slides/screenshots for key features.  
-- [ ] Rehearse the 5-minute demo to ensure smooth delivery.  
+### **Sprint 5 Checklist: Refinement and Presentation**  
+- [ ] Test all features for bugs and fix major issues.  
+- [ ] Finalize UI with consistent icons, colors, and layout.  
+- [ ] Add screenshots to documentation.  
+- [ ] Prepare polished presentation slides.  
+- [ ] Rehearse presentation and demo.  
 
 ---
 
 ## **Expected Outcomes**  
 By the end of the six days:  
-- A functional prototype of ErasmusGo with core features (login, calendar, map, events).  
-- Polished presentation materials and a clear demonstration of the app.  
-- A clear roadmap for future iterations (e.g., deferred features).  
+- A functional ErasmusGo prototype with key features (authentication, calendar, map, events).  
+- Comprehensive project documentation with diagrams, mockups, and explanations.  
+- A polished presentation showcasing the app and project details.
