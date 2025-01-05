@@ -43,6 +43,28 @@ To correctly define our work, we created user stories for the different stakehol
 
 ---
 
+## System Structure
+### Landing Page:
+#### 1. Login button (leads to home screen) 
+#### 2. I am a new student (leads to account setup screen) 
+
+### Main Menu:
+#### 1. Profile (leads to profile information screen) 
+#### 2. Communication (category)
+- Contact Teachers (find contact information of your teachers)
+- Find Peers (find students from same country)
+#### 3. Campus Information (category)
+- Academic Calendar (show academic year calendar)
+- Map of Buildings and Rooms (show map of classes/rooms and buildings)
+#### 4. Transportation & Discounts (category)
+- Public Transportation (shows public transportation options and availability)
+- Student Discounts (shows discount student qualify for) 
+#### 5. Learning & Events (category)
+- Learn Portuguese (Display basic portugese words/sentences and refer to portugese learning platform) 
+- Upcoming Events & Activities (display upcoming events & activities)
+
+---
+
 ## Use Cases
 Here’s a list of use cases, defined in detail.
 
