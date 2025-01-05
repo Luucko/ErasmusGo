@@ -28,7 +28,7 @@ To correctly define our work, we created user stories for the different stakehol
 
 ### **Must have**: Essential to launch the app.
 - As a new Erasmus student, I want to register an account using my email so that I can access the app’s features.
-- As a new Erasmus student, I want to be able to login to my personal account
+- As a new Erasmus student, I want to be able to login to my personal account.
 - As a new Erasmus student, I want to recover my password if I forget it so that I can regain access without contacting an administrator.
 - As a new Erasmus student, I want to complete my profile with my name, photo, email, and nationality so that I can identify myself within the application.
 
@@ -77,113 +77,191 @@ To correctly define our work, we created user stories for the different stakehol
 ---
 
 ## Use Cases
-Here’s a list of use cases, defined in detail.
+Here’s a list of use cases, defined in detail and prioritized by the MoSCoW structure.
 
-### **Use Case: Registration and Authentication** (Must Have)
-- **Actor**: New Erasmus Student
-- **Goal**: Enable users to create accounts and authenticate securely.
-- **Preconditions**: User has installed the app.
-- **Main Flow**:
-   1. User selects "Register" on the landing page.
-   2. User enters their email, creates a password, and submits the form.
-   3. App validates the input and creates the account.
-- **Postconditions**: User can log in.
-- **Alternative Path**: If the email is invalid or already registered, display an error message.
+### **Must Have (Essential to launch the app):**
 
-### **Use Case: Password Recovery** (Must Have)
-- **Actor**: Student
-- **Goal**: Allow users to recover their password.
-- **Preconditions**: User has an existing account.
-- **Main Flow**:
-   1. User selects "Forgot Password" on the login screen.
-   2. App sends a password recovery email.
-   3. User follows the link to reset the password.
-- **Postconditions**: User regains access to their account.
+#### **Use Case: Registration and Authentication**
+- **Priority:** Must
+- **Actor:** New Erasmus Student  
+- **Goal:** Enable users to register an account and log in securely.  
+- **Preconditions:**  
+  - User has installed the app.
+  - User has a valid email address.  
+- **Main Flow:**  
+  1. User selects the "Register" option on the landing page.  
+  2. User enters their email, creates a password, and fills out initial profile details (name, photo, nationality).  
+  3. App validates the input and creates the account.  
+  4. User logs in using their credentials.  
+- **Postconditions:**  
+  - User can access their personal account.  
+- **Alternative Path:**  
+  - If the email is invalid or already registered, display an error message.
 
-### **Use Case: Getting the Student Account Ready** (Should Have)
-- **Actor**: New Erasmus Student  
-- **Goal**: Guide new students through essential steps like student account setup.  
+#### **Use Case: Password Recovery**
+- **Priority:** Must  
+- **Actor:** Student  
+- **Goal:** Allow users to recover their password.  
+- **Preconditions:** User has an existing account.  
+- **Main Flow:**  
+  1. User selects "Forgot Password" on the login screen.  
+  2. App sends a password recovery email.  
+  3. User follows the link to reset their password.  
+- **Postconditions:**  
+  - User successfully resets their password and regains access to their account.
+ 
+#### **Use Case: Profile Completion**
+- **Priority:** Must  
+- **Actor:** New Erasmus Student  
+- **Goal:** Allow users to complete their profile with relevant details.  
+- **Preconditions:** User has successfully registered an account.  
+- **Main Flow:**  
+  1. User navigates to the "Profile" section after logging in.  
+  2. User uploads a photo and fills in personal details (name, email, nationality).
+  3. User saves the changes.  
+- **Postconditions:**  
+  - User’s profile is updated and visible in their account.  
+- **Alternative Path:**  
+  - If required fields are incomplete, app prompts user to provide missing information.
+
+### **Should Have (Useful features):**
+
+#### **Use Case: Activate Student Account**
+- **Priority:** Should  
+- **Actor:** New Erasmus Student  
+- **Goal:** Guide users through activating their school account.
 - **Preconditions**: Student has installed the app.  
 - **Main Flow**:
   1. Student selects "How do I activate my student account?" under "Campus Information".
   2. App guides the student through creating or activating their account.
-- **Postconditions**: Student has a working account and can login.
+- **Postconditions:**  
+  - User completes their onboarding process.  
 
-### **Use Case: Communication with Teachers** (Should Have)
-- **Actor**: Student  
-- **Goal**: Allow students to view teacher contact details.  
-- **Preconditions**: Student is logged into the application.  
-- **Main Flow**:
-  1. Student navigates to "Contact Teachers" section inside the "Communication" category.
-  2. Application displays a list of teachers with their details (name, email, office number).
-  3. Student clicks a teacher’s name to see additional information (optional).  
-- **Postconditions**: Student retrieves teacher’s contact details.  
-- **Alternative Path**: If the student is not logged in, they are redirected to the login screen.
+#### **Use Case: Teacher Communication**
+- **Priority:** Should  
+- **Actor:** Student  
+- **Goal:** Allow students to contact their professors.  
+- **Preconditions:**  
+  - App has a list of professors and their contact details.  
+- **Main Flow:**  
+  1. Student navigates to the "Contact Teachers" section.  
+  2. App displays a searchable list of professors with their contact details.  
+  3. Student clicks on a professor's name to view their full contact information.  
+- **Postconditions:**  
+  - Student retrieves the professor's contact details. 
 
-### **Use Case: School Calendar** (Should Have)
-- **Actor**: Student  
-- **Goal**: Provide an accessible school calendar with important dates.  
-- **Preconditions**: Administrator has updated the calendar.  
-- **Main Flow**:
-  1. Student navigates to the "Academic Calendar" section inside the "Campus Information" category.
-  2. App displays a calendar view with marked events and holidays.
-  3. Student taps on a date to view details.  
-- **Postconditions**: Student views the calendar.
+#### **Use Case: Calendar Management**
+- **Priority:** Should  
+- **Actor:** Student  
+- **Goal:** Provide an academic calendar with important dates.  
+- **Preconditions:**  
+  - Administrator has uploaded calendar data.  
+- **Main Flow:**  
+  1. Student opens the "Academic Calendar" section.  
+  2. App displays a calendar view with marked holidays and events.  
+  3. Student taps a date to view detailed information.  
+- **Postconditions:**  
+  - Student accesses calendar details. 
 
-### **Use Case: Language Information** (Should Have)
-- **Actor**: Student  
-- **Goal**: Provide resources for learning basic Portuguese.  
-- **Preconditions**: App is connected to external resources.  
-- **Main Flow**:
-  1. Student opens the "Learn Portuguese" section inside the "Learning & Events" category.
-  2. App displays basic phrases and external links (e.g., to PracticePortuguese.com).  
-- **Postconditions**: Student gains access to Portuguese learning materials.  
+#### **Use Case: Learning Portuguese**
+- **Priority:** Should  
+- **Actor:** Non-native Portuguese-speaking Student  
+- **Goal:** Provide basic Portuguese phrases and external learning resources.  
+- **Preconditions:**  
+  - App is connected to external language learning platforms.  
+- **Main Flow:**  
+  1. User accesses the "Learn Portuguese" section.  
+  2. App displays basic phrases and links to additional resources.  
+- **Postconditions:**  
+  - User learns basic Portuguese and accesses external resources.  
 
-### **Use Case: Public Transportation Information** (Should Have)
-- **Actor**: Student  
-- **Goal**: Help students find public transport options to campus.  
-- **Preconditions**: App has data on local transport routes.  
-- **Main Flow**:
-  1. Student accesses the "Public Transport" section inside the "Transportation & Discounts" category.
-  2. App displays transport routes and schedules.  
-- **Postconditions**: Student plans their journey to campus.  
+#### **Use Case: Public Transportation**
+- **Priority:** Should  
+- **Actor:** Student  
+- **Goal:** Help students find public transport options to campus.  
+- **Preconditions:** App contains local transport data.  
+- **Main Flow:**  
+  1. Student navigates to the "Public Transport" section.  
+  2. App displays routes, schedules, and commute tips.  
+- **Postconditions:**  
+  - Student plans their commute to campus.
 
-### **Use Case: Map of Buildings and Rooms**
-- **Actor**: Student  
-- **Goal**: Allow students to search for and locate specific classrooms or facilities on campus.  
-- **Preconditions**: Student accesses the application.  
-- **Main Flow**:
-  1. Student navigates to the "Map of Buildings and Rooms" section inside the "Campus Information" category.
-  2. Student searches for a room or building.
-  3. Application displays the location on a map with directions.  
-- **Postconditions**: Student views the desired location on the map.  
-- **Alternative Path**: If the searched room/building doesn’t exist, display a "Room not found" message.
+### **Use Case: Edit Student Information**  
+- **Priority:** Should  
+- **Actor:** Administrator  
+- **Goal:** Allow administrators to update or correct student information.  
+- **Preconditions:**  
+  - Administrator is logged into the app.  
+  - Student account exists in the database.  
+- **Main Flow:**  
+  1. Administrator navigates to the "Manage Students" section.  
+  2. Administrator searches for a student by name, email, or ID.  
+  3. App displays the student's profile information.  
+  4. Administrator selects "Edit" and updates the necessary fields (e.g., name, nationality, email).  
+  5. Administrator saves the changes.  
+- **Postconditions:**  
+  - Student's information is updated in the database.  
+- **Alternative Path:**  
+  - If the student is not found, display a "Student not found" error message.  
+  - If mandatory fields are incomplete or invalid, prompt the administrator to correct them.  
+ 
+### **Could Have (Nice-to-have features):**
 
-### **Use Case: Events Together (Freetime)**
-- **Actor**: Student  
-- **Goal**: View and register for upcoming events.  
-- **Preconditions**: Administrator has uploaded event information.  
-- **Main Flow**:
-  1. Student accesses the "Upcoming Events & Activities" section inside the "Learning & Events" category.
-  2. App displays a list of events with descriptions and dates.
+#### **Use Case: Campus Map**
+- **Priority:** Could  
+- **Actor:** Student  
+- **Goal:** Enable students to find classrooms and buildings on campus.  
+- **Preconditions:** App has campus map data.  
+- **Main Flow:**  
+  1. Student opens the "Campus Map" section.  
+  2. User searches for a specific room or building.  
+  3. App displays the location on a map with directions.  
+- **Postconditions:**  
+  - Student identifies the desired location.  
+
+#### **Use Case: Upcoming Events**
+- **Priority:** Could  
+- **Actor:** Student  
+- **Goal:** Provide a list of upcoming events and allow registration.  
+- **Preconditions:** Administrator uploads event data.  
+- **Main Flow:**  
+  1. Student opens the "Upcoming Events" section.  
+  2. App displays event details (name, date, description).  
   3. Student registers for an event.  
-- **Postconditions**: Student successfully registers for an event.  
+- **Postconditions:**  
+  - Student successfully registers for the event.  
 
-### **Use Case: Connecting with Students from the Same Country**
-- **Actor**: Student  
-- **Goal**: Allow students to connect with peers from their home country.  
-- **Preconditions**: Student profile includes nationality.  
-- **Main Flow**:
-  1. Student accesses the "Find Peers" section inside the "Communication" category.
-  2. App displays a list of students with the same nationality.
+#### **Use Case: Peer Connections**
+- **Priority:** Could  
+- **Actor:** Student  
+- **Goal:** Connect students from the same country.  
+- **Preconditions:** Student profile includes nationality.  
+- **Main Flow:**  
+  1. Student navigates to the "Find Peers" section.  
+  2. App displays a list of students with the same nationality.  
   3. Student selects a peer to view their profile.  
-- **Postconditions**: Student connects with another peer.  
+- **Postconditions:**  
+  - Student connects with another peer. 
 
-### **Use Case: Discounts List**
-- **Actor**: Student  
-- **Goal**: Show a list of student discounts.  
-- **Preconditions**: Discounts are predefined in the database.  
-- **Main Flow**:
-  1. Student accesses the "Student Discounts" section inside the "Transportation & Discounts" category.
-  2. App displays a categorized list of discounts (e.g., food, transport, activities).  
-- **Postconditions**: Student views discount information.
+#### **Use Case: Student Discounts**
+- **Priority:** Could  
+- **Actor:** Student  
+- **Goal:** Provide a categorized list of student discounts.  
+- **Preconditions:** App contains discount data.  
+- **Main Flow:**  
+  1. Student accesses the "Student Discounts" section.  
+  2. App displays a categorized list (e.g., food, transport).  
+- **Postconditions:**  
+  - Student views and utilizes the discounts.
+ 
+#### **Use Case: Event Management**
+- **Priority:** Could  
+- **Actor:** Administrator  
+- **Goal:** Allow administrators to upload new events.  
+- **Preconditions:** Administrator has access to the app backend.  
+- **Main Flow:**  
+  1. Administrator navigates to the "Add Event" section.  
+  2. Administrator fills out the event details.  
+  3. App publishes the event.  
+- **Postconditions:**  
+  - Event appears in the "Upcoming Events" section. 
