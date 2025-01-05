@@ -12,20 +12,21 @@ class DBHelper(context: Context) {
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
 
     // Data class for User
-    data class User(val id: String, val name: String, val password: String)
+    data class User(val id: String, val name: String, val password: String, val country: String)
 
     /**
      * Add a new user to Firebase Authentication and Database
      * @param email: User email (used as Firebase authentication ID)
      * @param password: User password
      * @param name: User name
+     * @param country: User's country
      * @param onComplete: Callback for success or failure
      */
-    fun addUser(email: String, password: String, name: String, onComplete: (Boolean, String) -> Unit) {
+    fun addUser(email: String, password: String, name: String, country: String, onComplete: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
-                val user = User(userId, name, password)
+                val user = User(userId, name, password, country)
                 database.child(userId).setValue(user).addOnCompleteListener { dbTask ->
                     if (dbTask.isSuccessful) {
                         onComplete(true, "User added successfully!")

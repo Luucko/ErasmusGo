@@ -17,7 +17,12 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -46,156 +51,266 @@ class MainActivity : ComponentActivity() {
                         composable("start") {
                             MainScreen(navController = navController)
                         }
-                        composable("home") {
-                            //HomeScreen(navController = navController)
+                        composable("login") {
+                            LoginScreen(dbHelper, navController = navController)
                         }
-                        composable("calender") {
-                            //PokeDex(navController = navController, user!!.name, dbHelper)
+                        composable("register") {
+                            RegisterScreen(navController = navController)
+                        }
+                        composable("new_student") {
+                            //NewStudentScreen(navController = navController)
+                        }
+                        composable("my_account") {
+                            //MyAccountScreen(navController = navController)
+                        }
+                        composable("communication") {
+                            //AcademicsScreen(navController = navController)
+                        }
+                        composable("campus_life") {
+                            //CampusLifeScreen(navController = navController)
+                        }
+                        composable("language") {
+                            //LanguageScreen(navController = navController)
+                        }
+                        composable("events") {
+                            //EventsScreen(navController = navController)
+                        }
+                        composable("transportation_and_discounts") {
+                            //TransportationScreen(navController = navController)
+                        }
+                        composable("admin_tools") {
+                            //AdminToolsScreen(navController = navController)
                         }
                     }
                 }
             }
         }
     }
-}
+    @Composable
+    fun LoginScreen(dbHelper: DBHelper, navController: NavController) {
+        var email by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        var errorMessage by remember { mutableStateOf<String?>(null) }
+        var loading by remember { mutableStateOf(false) }
 
-@Composable
-fun MainScreen(navController: NavController) {
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = "Login",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        gesturesEnabled = true,
-        drawerContent = {
-            SideMenu(navController = navController, drawerState = drawerState)
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation()
+                )
+
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage!!,
+                        color = Color.Red,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                Button(
+                    onClick = {
+                        loading = true
+                        dbHelper.authenticateUser(email, password) { success, message ->
+                            loading = false
+                            if (success) {
+                                navController.navigate("start")
+                            } else {
+                                errorMessage = message
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !loading
+                ) {
+                    if (loading) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    } else {
+                        Text("Login")
+                    }
+                }
+
+                TextButton(onClick = { navController.navigate("register") }) {
+                    Text("I am a new student!")
+                }
+            }
         }
-    ) {
-        Scaffold(
-            topBar = {
-                CustomTopBar {
+    }
+    @Composable
+    fun RegisterScreen(navController: NavController) {
+
+    }
+
+    @Composable
+    fun MainScreen(navController: NavController) {
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            gesturesEnabled = true,
+            drawerContent = {
+                SideMenu(navController = navController, drawerState = drawerState)
+            }
+        ) {
+            Scaffold(
+                topBar = {
+                    CustomTopBar {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    }
+                },
+                bottomBar = {
+                    BottomNavigationBar(navController)
+                }
+            ) { innerPadding ->
+                // Main content goes here
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    Greeting("Erasmus Student")
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun CustomTopBar(onMenuClick: () -> Unit) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(MaterialTheme.colorScheme.primary),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = onMenuClick) {
+                Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
+            }
+            Text(
+                text = "ErasmusGO",
+                color = Color.White,
+                style = MaterialTheme.typography.titleLarge
+            )
+            IconButton(onClick = { /* Handle profile click */ }) {
+                Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
+            }
+        }
+    }
+
+    @Composable
+    fun SideMenu(navController: NavController, drawerState: DrawerState) {
+        val scope = rememberCoroutineScope()
+
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(Color.LightGray)
+                .padding(16.dp)
+        ) {
+            Text("Menu", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(bottom = 16.dp))
+
+            val menuItems = listOf(
+                "home" to "start",
+                "login" to "login",
+                "teachers" to "communication",
+                "map" to "campus_life",
+                "first_steps" to "new_student",
+                "account_setup" to "my_account",
+                "meetings" to "communication",
+                "events" to "events",
+                "calendar" to "campus_life",
+                "other_students" to "admin_tools",
+                "language" to "language",
+                "transport" to "transportation_and_discounts",
+                "discounts" to "transportation_and_discounts"
+            )
+
+            menuItems.forEach { (title, route) ->
+                TextButton(onClick = {
                     scope.launch {
-                        drawerState.open()
+                        drawerState.close()
                     }
+                    navController.navigate(route)
+                }) {
+                    Text(text = title, style = MaterialTheme.typography.bodySmall)
                 }
-            },
-            bottomBar = {
-                BottomNavigationBar(navController)
-            }
-        ) { innerPadding ->
-            // Main content goes here
-            Box(modifier = Modifier.padding(innerPadding)) {
-                Greeting("Erasmus Student")
             }
         }
     }
-}
 
-@Composable
-fun CustomTopBar(onMenuClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(MaterialTheme.colorScheme.primary),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        IconButton(onClick = onMenuClick) {
-            Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
-        }
-        Text(
-            text = "Erasmus Welcome",
-            color = Color.White,
-            style = MaterialTheme.typography.titleLarge
-        )
-        IconButton(onClick = { /* Handle profile click */ }) {
-            Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
-        }
-    }
-}
-
-@Composable
-fun SideMenu(navController: NavController, drawerState: DrawerState) {
-    val scope = rememberCoroutineScope()
-
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .background(Color.LightGray)
-            .padding(16.dp)
-    ) {
-        Text("Menu", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(bottom = 16.dp))
-
-        val menuItems = listOf(
-            "Home" to "home",
-            "Info" to "info",
-            "Communicating with Teachers" to "teachers",
-            "Map of Buildings and Rooms" to "map",
-            "First Steps at University" to "first_steps",
-            "Student Account Setup" to "account_setup",
-            "Important Meetings" to "meetings",
-            "Events Together" to "events",
-            "School Calendar" to "calendar",
-            "Other Students Info" to "other_students",
-            "Language Info" to "language",
-            "Public Transportation" to "transport",
-            "Discount List" to "discounts"
-        )
-
-        menuItems.forEach { (title, route) ->
-            TextButton(onClick = {
-                scope.launch {
-                    drawerState.close()
-                }
-                navController.navigate(route)
-            }) {
-                Text(text = title, style = MaterialTheme.typography.bodySmall)
+    @Composable
+    fun BottomNavigationBar(navController: NavController) {
+        BottomAppBar(
+            containerColor = MaterialTheme.colorScheme.primary
+        ) {
+            IconButton(onClick = { navController.navigate("home") }) {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = "Home",
+                    tint = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f, true))
+            IconButton(onClick = { navController.navigate("map") }) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Map",
+                    tint = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f, true))
+            IconButton(onClick = { navController.navigate("info") }) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "Info",
+                    tint = Color.White
+                )
             }
         }
     }
-}
 
-@Composable
-fun BottomNavigationBar(navController: NavController) {
-    BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.primary
-    ) {
-        IconButton(onClick = { navController.navigate("home") }) {
-            Icon(
-                imageVector = Icons.Default.Home,
-                contentDescription = "Home",
-                tint = Color.White
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f, true))
-        IconButton(onClick = { navController.navigate("map") }) {
-            Icon(
-                imageVector = Icons.Default.Menu,
-                contentDescription = "Map",
-                tint = Color.White
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f, true))
-        IconButton(onClick = { navController.navigate("info") }) {
-            Icon(
-                imageVector = Icons.Default.Info,
-                contentDescription = "Info",
-                tint = Color.White
-            )
+
+
+
+    @Composable
+    fun Greeting(name: String) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(text = "Hello $name!")
         }
     }
-}
 
 
-
-
-@Composable
-fun Greeting(name: String) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(text = "Hello $name!")
-    }
 }
