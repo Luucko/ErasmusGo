@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(dbHelper, navController = navController)
                         }
                         composable("register") {
-                            RegisterScreen(navController = navController)
+                            RegisterScreen(dbHelper, navController = navController)
                         }
                         composable("new_student") {
                             //NewStudentScreen(navController = navController)
@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
     }
     @Composable
     fun LoginScreen(dbHelper: DBHelper, navController: NavController) {
-        var email by remember { mutableStateOf("") }
+        var name by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var loading by remember { mutableStateOf(false) }
@@ -105,15 +105,15 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "Login",
+                    text = "Welcome to ErasmusGO",
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
 
                 OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Name") },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -138,13 +138,19 @@ class MainActivity : ComponentActivity() {
                 Button(
                     onClick = {
                         loading = true
-                        dbHelper.authenticateUser(email, password) { success, message ->
-                            loading = false
-                            if (success) {
+                        errorMessage = null
+                        try {
+                            // Validate credentials with DBHelper
+                            val isMatch = dbHelper.checkPasswordMatch(name, password)
+                            if (isMatch) {
                                 navController.navigate("start")
                             } else {
-                                errorMessage = message
+                                errorMessage = "Invalid username or password"
                             }
+                        } catch (e: Exception) {
+                            errorMessage = "Error during login: ${e.message}"
+                        } finally {
+                            loading = false
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -161,14 +167,138 @@ class MainActivity : ComponentActivity() {
                 }
 
                 TextButton(onClick = { navController.navigate("register") }) {
-                    Text("I am a new student!")
+                    Text("Don't have an account? Register")
                 }
             }
         }
     }
     @Composable
-    fun RegisterScreen(navController: NavController) {
+    fun RegisterScreen(dbHelper: DBHelper, navController: NavController) {
+        var name by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        var confirmPassword by remember { mutableStateOf("") }
+        var country by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
+        var errorMessage by remember { mutableStateOf<String?>(null) }
+        var successMessage by remember { mutableStateOf<String?>(null) }
+        var loading by remember { mutableStateOf(false) }
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = "Register",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Name") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation()
+                )
+
+                OutlinedTextField(
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    label = { Text("Confirm Password") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation()
+                )
+
+                OutlinedTextField(
+                    value = country,
+                    onValueChange = { country = it },
+                    label = { Text("Country") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage!!,
+                        color = Color.Red,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                if (successMessage != null) {
+                    Text(
+                        text = successMessage!!,
+                        color = Color.Green,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                Button(
+                    onClick = {
+                        if (name.isBlank() || password.isBlank() || confirmPassword.isBlank() || country.isBlank() || email.isBlank()) {
+                            errorMessage = "All fields are required!"
+                            return@Button
+                        }
+
+                        if (password != confirmPassword) {
+                            errorMessage = "Passwords do not match!"
+                            return@Button
+                        }
+
+                        loading = true
+                        errorMessage = null
+                        try {
+                            dbHelper.addUser(name, password, country, email)
+                            successMessage = "User registered successfully!"
+                            loading = false
+                        } catch (e: Exception) {
+                            errorMessage = "Registration failed: ${e.message}"
+                            loading = false
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !loading
+                ) {
+                    if (loading) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    } else {
+                        Text("Register")
+                    }
+                }
+
+                TextButton(onClick = { navController.navigate("login") }) {
+                    Text("Already have an account? Login")
+                }
+            }
+        }
     }
 
     @Composable
@@ -242,13 +372,12 @@ class MainActivity : ComponentActivity() {
             val menuItems = listOf(
                 "home" to "start",
                 "login" to "login",
-                "teachers" to "communication",
-                "map" to "campus_life",
-                "first_steps" to "new_student",
-                "account_setup" to "my_account",
+                "communication" to "communication",
+                "calender" to "campus_life",
+                "campus_map" to "campus_life",
+                "my_account" to "my_account",
                 "meetings" to "communication",
                 "events" to "events",
-                "calendar" to "campus_life",
                 "other_students" to "admin_tools",
                 "language" to "language",
                 "transport" to "transportation_and_discounts",
