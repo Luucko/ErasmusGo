@@ -278,7 +278,7 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
 - **Postconditions:**  
   - Student plans their commute to campus.
 
-### **Use Case: Edit Student Information**  
+#### **Use Case: Edit Student Information**  
 - **Priority:** Should  
 - **Actor:** Administrator  
 - **Goal:** Allow administrators to update or correct student information.  
@@ -357,7 +357,3 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   3. App publishes the event.  
 - **Postconditions:**  
   - Event appears in the "Upcoming Events" section.
- 
----
-
-
