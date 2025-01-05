@@ -1,7 +1,7 @@
-# ErasmusGo
+# **ErasmusGo**
 
 ## **Team Organization**
-To ensure clarification on roles and responsibilities, we devided our team into three roles:
+To ensure clarification on roles and responsibilities, we divided our team into three roles:
 
 1. **Lucas Viaene: Project Manager/Coordinator:** 
    - Manages the timeline, organizes sprints, and ensures everyone is on track.
@@ -18,8 +18,124 @@ To ensure clarification on roles and responsibilities, we devided our team into 
 ---
 
 ## **Introduction**
+
 ### **Contextualization, Objectives, and Motivation**  
-ErasmusGo is designed to support incoming Erasmus students in navigating the initial challenges of settling into a new academic and cultural environment. The app aims to centralize resources such as account setup, campus navigation, event management, and essential communication features, simplifying the onboarding process for international students.
+ErasmusGo is designed to support incoming Erasmus students in navigating the initial challenges of settling into a new academic and cultural environment.  
+The application aims to simplify the onboarding process for international students by centralizing essential resources such as account setup, campus navigation, event management, and communication tools.
+
+**Objectives:**  
+1. Provide a streamlined registration process for new Erasmus students.  
+2. Simplify first-time setup for campus life, including activating student accounts.  
+3. Facilitate communication with professors and peers.  
+4. Offer tools like campus maps, academic calendars, and transportation information to ease student transitions.  
+5. Provide language support and cultural integration resources.  
+
+**Motivation:**  
+The Erasmus exchange experience can be overwhelming for international students unfamiliar with their new surroundings. ErasmusGo seeks to empower students with confidence and independence as they adapt to their academic and cultural settings.
+
+---
+
+## **Development of the System Proposal**
+
+### **Stakeholders**
+The key stakeholders for ErasmusGo are:  
+- **Erasmus Students:** The primary users, benefiting from the app’s features to facilitate their stay.  
+- **University Staff and Professors:** Secondary users providing data and managing student-related interactions.  
+- **Administrators:** Responsible for maintaining app accuracy by updating profiles, events, and other critical information.
+
+---
+
+### **Functional Requirements**
+The app must meet the following functional requirements:  
+1. **Registration and Login:**  
+   - Students can register accounts using email.  
+   - Password recovery functionality for forgotten credentials.  
+
+2. **Profile Management:**  
+   - Students can update their profiles with personal details and photos.  
+   - Administrators can modify student profiles when necessary.  
+
+3. **Campus Navigation:**  
+   - Provide maps for classroom locations.  
+   - Steps for activating university accounts.  
+
+4. **Communication Features:**  
+   - Contact details for professors.  
+   - Peer-finding tools based on nationality.  
+
+5. **Event Management:**  
+   - View upcoming events and activities.  
+   - Administrators can upload new events.  
+
+6. **Academic Calendar and Transportation Information:**  
+   - Provide key dates and holidays.  
+   - Display public transport routes and schedules.  
+
+7. **Language and Cultural Support:**  
+   - Basic Portuguese learning resources.  
+   - Suggestions for external Portuguese language courses.
+
+---
+
+### **Non-Functional Requirements**
+The app must also satisfy the following non-functional criteria:  
+1. **Usability:**  
+   - Interface must be intuitive and simple to navigate.  
+
+2. **Performance:**  
+   - Handle concurrent logins efficiently.  
+   - Respond to user queries within 2 seconds.  
+
+3. **Security:**  
+   - Require strong password protocols during registration.  
+
+4. **Scalability:**  
+   - Ensure the app accommodates an increasing number of users and events.  
+
+5. **Availability:**  
+   - Maintain uptime of 99.9% during academic sessions.
+
+---
+
+## **System Architecture**
+The system architecture is designed to accommodate ease of use, scalability, and modularity. Below is an overview of the app’s structure and functionality:
+
+### **Landing Page**
+- **Login Button:** Redirects users to their accounts.  
+- **Register Button:** Leads to the registration screen.  
+- **Forgot Password Button:** Initiates the password recovery process.  
+
+### **Main Menu**
+1. **Profile Section:**  
+   - View and edit personal information.  
+
+2. **Communication:**  
+   - **Contact Teachers:** List and search professor contact details.  
+   - **Find Peers:** Identify other students from the same nationality.  
+
+3. **Campus Information:**  
+   - **Account Activation:** Steps for activating a school account.  
+   - **Academic Calendar:** Key dates and holidays.  
+   - **Campus Map:** Interactive maps of classrooms and buildings.  
+
+4. **Transportation & Discounts:**  
+   - **Public Transport Information:** Routes and schedules.  
+   - **Student Discounts:** Categorized discount opportunities.  
+
+5. **Learning & Events:**  
+   - **Learn Portuguese:** Basic phrases and language resources.  
+   - **Upcoming Events:** List and details of planned activities.  
+
+### **Technical Infrastructure**
+1. **Frontend:**  
+   - Developed using Kotlin Jetpack-Compose for a cross-platform mobile experience.  
+   - Intuitive UI/UX to ensure a seamless experience.  
+
+2. **Backend:**  
+   - Local SQLite for communication between the app and database and Firebase for external API call.  
+
+3. **Database:**  
+   - SQLite Database to securely store user data and application resources.   
 
 ---
 
@@ -50,31 +166,7 @@ To correctly define our work, we created user stories for the different stakehol
 ### **Won’t have** (for now): Features you defer to later iterations.
 - /
 
----
-
-## System Architecture
-### Landing Page:
-#### 1. Login button (leads to home screen) 
-#### 2. Register button (leads to registration screen)
-#### 3. Forgot password button
-
-### Main Menu:
-#### 1. Profile (leads to profile information screen) 
-#### 2. Communication (category)
-- Contact Teachers (find contact information of your teachers)
-- Find Peers (find students from same country)
-#### 3. Campus Information (category)
-- How do I activate my Student Account? (explain steps to activate IPCA student account)
-- Academic Calendar (show academic year calendar)
-- Map of Buildings and Rooms (show map of classes/rooms and buildings)
-#### 4. Transportation & Discounts (category)
-- Public Transportation (shows public transportation options and availability)
-- Student Discounts (shows discount student qualify for) 
-#### 5. Learning & Events (category)
-- Learn Portuguese (Display basic portugese words/sentences and refer to portugese learning platform) 
-- Upcoming Events & Activities (display upcoming events & activities)
-
----
+--- 
 
 ## Use Cases
 Here’s a list of use cases, defined in detail and prioritized by the MoSCoW structure.
@@ -264,4 +356,8 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   2. Administrator fills out the event details.  
   3. App publishes the event.  
 - **Postconditions:**  
-  - Event appears in the "Upcoming Events" section. 
+  - Event appears in the "Upcoming Events" section.
+ 
+---
+
+
