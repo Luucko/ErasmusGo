@@ -1,7 +1,3 @@
-Here’s the revised plan that incorporates the changes to the project, emphasizing the use of SQL database instead of Firebase, and including detailed documentation requirements. The structure remains consistent for clarity:
-
----
-
 # **Plan for ErasmusGo Project**  
 
 ## **Goal for the Next Six Days**  
@@ -173,7 +169,3 @@ By the end of the six days:
 - A functional ErasmusGo prototype with key features (authentication, calendar, map, events).  
 - Comprehensive project documentation with diagrams, mockups, and explanations.  
 - A polished presentation showcasing the app and project details.
-
---- 
-
-Let me know if additional adjustments are needed!
