@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +29,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import com.howest.erasmuswelcome.CountryFetcher.Companion.fetchCountries
+
 
 class MainActivity : ComponentActivity() {
 
@@ -47,15 +51,15 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    NavHost(navController, startDestination = "start") {
-                        composable("start") {
-                            MainScreen(navController = navController)
-                        }
+                    NavHost(navController, startDestination = "login") {
                         composable("login") {
                             LoginScreen(dbHelper, navController = navController)
                         }
                         composable("register") {
                             RegisterScreen(dbHelper, navController = navController)
+                        }
+                        composable("start") {
+                            MainScreen(navController = navController)
                         }
                         composable("new_student") {
                             //NewStudentScreen(navController = navController)
@@ -143,6 +147,7 @@ class MainActivity : ComponentActivity() {
                             // Validate credentials with DBHelper
                             val isMatch = dbHelper.checkPasswordMatch(name, password)
                             if (isMatch) {
+                                user = dbHelper.getUserByUsername(name)
                                 navController.navigate("start")
                             } else {
                                 errorMessage = "Invalid username or password"
@@ -172,6 +177,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun RegisterScreen(dbHelper: DBHelper, navController: NavController) {
         var name by remember { mutableStateOf("") }
@@ -182,6 +188,19 @@ class MainActivity : ComponentActivity() {
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var successMessage by remember { mutableStateOf<String?>(null) }
         var loading by remember { mutableStateOf(false) }
+        var expanded by remember { mutableStateOf(false) }
+        var countryList by remember { mutableStateOf<List<String>>(emptyList()) }
+
+        // Fetch the countries using CountryFetcher
+        LaunchedEffect(countryList) {
+            fetchCountries { fetchedCountries ->
+                if (fetchedCountries != null) {
+                    countryList = fetchedCountries
+                } else {
+                    errorMessage = "Failed to load countries"
+                }
+            }
+        }
 
         Box(
             modifier = Modifier
@@ -226,13 +245,37 @@ class MainActivity : ComponentActivity() {
                     visualTransformation = PasswordVisualTransformation()
                 )
 
-                OutlinedTextField(
-                    value = country,
-                    onValueChange = { country = it },
-                    label = { Text("Country") },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                // Country Dropdown
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded }
+                ) {
+                    OutlinedTextField(
+                        value = country,
+                        onValueChange = { },
+                        readOnly = true,
+                        label = { Text("Country") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        countryList.forEach { countryName ->
+                            DropdownMenuItem(
+                                text = { Text(countryName) },
+                                onClick = {
+                                    country = countryName
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
 
                 OutlinedTextField(
                     value = email,
@@ -327,7 +370,7 @@ class MainActivity : ComponentActivity() {
             ) { innerPadding ->
                 // Main content goes here
                 Box(modifier = Modifier.padding(innerPadding)) {
-                    Greeting("Erasmus Student")
+                    user?.name?.let { Greeting(name = it) }
                 }
             }
         }
@@ -402,7 +445,7 @@ class MainActivity : ComponentActivity() {
         BottomAppBar(
             containerColor = MaterialTheme.colorScheme.primary
         ) {
-            IconButton(onClick = { navController.navigate("home") }) {
+            IconButton(onClick = { navController.navigate("start") }) {
                 Icon(
                     imageVector = Icons.Default.Home,
                     contentDescription = "Home",
@@ -427,9 +470,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-
 
     @Composable
     fun Greeting(name: String) {
