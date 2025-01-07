@@ -398,3 +398,19 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   3. App publishes the event.  
 - **Postconditions:**  
   - Event appears in the "Upcoming Events" section.
+
+--- 
+
+## **Functional Wireframes and Workflow**
+
+We created [functional wireframes using Figma](https://www.figma.com/design/W71VG7fzaUZVvqL68tqUmb/ErasmusGO?node-id=0-1&t=aHw2Vh18XATTNCml-1) to visualize and represent how the ErasmusGo app operates. The wireframes include two main workflows:  
+
+1. **Erasmus Student Workflow:**  
+   - This set of wireframes outlines the app's functionality from the perspective of a general Erasmus student.  
+   - It demonstrates key features such as registration, login, profile management, campus navigation, event access, and communication tools.  
+
+2. **Administrator Workflow:**  
+   - A separate set of wireframes is dedicated to administrators using the app.  
+   - It showcases administrative functionalities, including modifying user information (e.g., updating a student's name or email) and managing app content such as events.  
+
+These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
