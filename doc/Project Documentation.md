@@ -414,3 +414,5 @@ We created [functional wireframes using Figma](https://www.figma.com/design/W71V
    - It showcases administrative functionalities, including modifying user information (e.g., updating a student's name or email) and managing app content such as events.  
 
 These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
+
+# Important: if Administrator dashboard is not necessary, delete all appearances of this functionality in this documentation file.
