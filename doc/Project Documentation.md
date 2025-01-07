@@ -95,6 +95,47 @@ The app must also satisfy the following non-functional criteria:
 5. **Availability:**  
    - Maintain uptime of 99.9% during academic sessions.
 
+--- 
+
+### **Hardware and Software Requirements**
+
+#### **Hardware Requirements**  
+ErasmusGo is a lightweight application designed to run efficiently on standard devices:
+
+1. **For Students and Administrators (Mobile App Users):**  
+   - **Device Type:** Smartphone or Tablet  
+   - **Operating System:** Android 6.0+ or iOS 12.0+  
+   - **RAM:** 1 GB or more  
+   - **Processor:** Dual-core (1.0 GHz or higher)  
+   - **Storage Space:** Minimum 50 MB for app installation  
+   - **Internet Connection:** Wi-Fi or mobile data (2G or higher)  
+
+2. **For Backend Hosting:**  
+   - **Server Specifications (Cloud or Local):**  
+     - **Processor:** Dual-core CPU (2.0 GHz or higher)  
+     - **RAM:** 4 GB  
+     - **Storage:** 10 GB available for database and app resources  
+     - **Network Bandwidth:** 10 Mbps or higher  
+
+---
+
+#### **Software Requirements**  
+1. **For App Development:**  
+   - **Frontend:** Kotlin (Jetpack Compose)  
+   - **Backend:** Firebase for authentication and cloud storage  
+   - **Database:** SQLite (local storage)  
+   - **Development Tools:** Android Studio (latest version)  
+
+2. **For App Users (Students and Admins):**  
+   - **App Compatibility:**  
+     - Android 6.0+ or iOS 12.0+  
+     - Firebase Authentication for secure login  
+
+3. **For Server Hosting:**  
+   - **Cloud Service Provider:** Firebase (no dedicated server required for small-scale operations)  
+
+This setup ensures that ErasmusGo operates smoothly on common school devices without requiring advanced hardware or software infrastructure.
+
 ---
 
 ## **System Architecture**
