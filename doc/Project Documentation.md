@@ -410,7 +410,7 @@ We created [functional wireframes using Figma](https://www.figma.com/design/W71V
    - It demonstrates key features such as registration, login, profile management, campus navigation, event access, and communication tools.  
 
 2. **Administrator Workflow:**  
-   - A separate set of wireframes is dedicated to administrators using the app.  
+   - A separate dashboard screen dedicated to administrators using the app.  
    - It showcases administrative functionalities, including modifying user information (e.g., updating a student's name or email) and managing app content such as events.  
 
 These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
