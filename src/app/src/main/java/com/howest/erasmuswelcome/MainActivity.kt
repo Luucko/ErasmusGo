@@ -15,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.howest.erasmuswelcome.ui.theme.ErasmuswelcomeTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.LaunchedEffect
@@ -33,10 +31,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import com.google.firebase.database.FirebaseDatabase
-
 import com.howest.erasmuswelcome.CountryFetcher.Companion.fetchCountries
+import com.howest.erasmuswelcome.Screens.AccountActivationScreen
+import com.howest.erasmuswelcome.Screens.CampusMapScreen
+import com.howest.erasmuswelcome.Screens.ContactTeacherScreen
+import com.howest.erasmuswelcome.Screens.DiscountScreen
+import com.howest.erasmuswelcome.Screens.EventsScreen
+import com.howest.erasmuswelcome.Screens.FindPeersScreen
+import com.howest.erasmuswelcome.Screens.LanguageScreen
+import com.howest.erasmuswelcome.Screens.TransportationScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -68,27 +71,49 @@ class MainActivity : ComponentActivity() {
                         composable("start") {
                             MainScreen(navController = navController)
                         }
-                        composable("new_student") {
-                            //NewStudentScreen(navController = navController)
-                        }
+                        composable("find_Peers") {
+                            defaultScreen(navController = navController,
+                                FindPeersScreen()
+                            )  }
                         composable("my_account") {
                             MyAccountScreen(navController = navController)
                         }
                         composable("communication") {
-                            ContactTeacherScreen(navController = navController)
+                            defaultScreen(navController = navController,
+                                ContactTeacherScreen()
+                            )
                         }
-                        composable("campus_life") {
-                            //CampusLifeScreen(navController = navController)
+                        composable("account_activation") {
+                            defaultScreen(navController =navController,
+                                AccountActivationScreen()
+                            )
                         }
+                        composable("calender") {
+                            defaultScreen(navController =navController,
+                                AccountActivationScreen()
+                            )
+                        }
+                        composable("campus_map") {
+                            defaultScreen(navController =navController,
+                                CampusMapScreen()
+                            )}
+                        composable("transportation") {
+                            defaultScreen(navController =navController,
+                                TransportationScreen()
+                            )}
+
+                        composable("discounts") {
+                            defaultScreen(navController =navController,
+                                DiscountScreen()
+                            )}
                         composable("language") {
-                            //LanguageScreen(navController = navController)
-                        }
-                        composable("events") {
-                            //EventsScreen(navController = navController)
-                        }
-                        composable("transportation_and_discounts") {
-                            //TransportationScreen(navController = navController)
-                        }
+                            defaultScreen(navController =navController,
+                                LanguageScreen()
+                            )}
+                        composable("upcoming_events") {
+                            defaultScreen(navController =navController,
+                                EventsScreen()
+                            ) }
                         composable("admin_tools") {
                             //AdminToolsScreen(navController = navController)
                         }
@@ -99,12 +124,11 @@ class MainActivity : ComponentActivity() {
     }
 
 
-    @OptIn(ExperimentalMaterial3Api::class)
+
     @Composable
-    fun ContactTeacherScreen(navController: NavController) {
+    fun defaultScreen(navController: NavController,content:ContentScreen) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
-
         ModalNavigationDrawer(
             drawerState = drawerState,
             gesturesEnabled = true,
@@ -123,16 +147,14 @@ class MainActivity : ComponentActivity() {
                         navController = navController
                     )
                 }
-
             ) { innerPadding ->
                 // Main content goes here
                 Box(modifier = Modifier.padding(innerPadding)) {
-                   ContactTeacherScreen().ContactTeacherScreen()
+                    content.DrawContent()
                 }
             }
 
         }
-
     }
 
     @Composable
@@ -537,15 +559,17 @@ class MainActivity : ComponentActivity() {
             val menuItems = listOf(
                 "home" to "start",
                 "login" to "login",
-                "communication" to "communication",
-                "calender" to "campus_life",
-                "campus_map" to "campus_life",
-                "meetings" to "communication",
-                "events" to "events",
-                "other_students" to "admin_tools",
-                "language" to "language",
-                "transport" to "transportation_and_discounts",
-                "discounts" to "transportation_and_discounts"
+                "Contact Teachers" to "communication",
+                "Find Peers" to "find_Peers",
+                "Account activation" to "account_activation",
+                "Calender" to "calender",
+                "Campus map" to "campus_map",
+                "Public Transportation" to "transportation",
+                "Discounts" to "discounts",
+                "Language" to "language",
+                "Upcoming Events" to "upcoming_events",
+                "other students" to "admin_tools",
+
             )
 
             menuItems.forEach { (title, route) ->

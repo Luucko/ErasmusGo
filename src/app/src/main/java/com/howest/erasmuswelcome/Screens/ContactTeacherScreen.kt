@@ -1,4 +1,4 @@
-package com.howest.erasmuswelcome
+package com.howest.erasmuswelcome.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,11 +22,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.howest.erasmuswelcome.ContentScreen
+import com.howest.erasmuswelcome.FirebaseDBHelper
 
-class ContactTeacherScreen {
+class ContactTeacherScreen : ContentScreen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun ContactTeacherScreen(){
+    override fun DrawContent() {
         var teacherDB: FirebaseDBHelper = FirebaseDBHelper()
         var teacherList: List<FirebaseDBHelper.Teacher> = teacherDB.getTeachers()
 
@@ -42,9 +44,6 @@ class ContactTeacherScreen {
         teacherList.forEach { e ->
             courses.addAll(e.courses)
         }
-
-
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -72,7 +71,6 @@ class ContactTeacherScreen {
                             .menuAnchor()
                             .fillMaxWidth()
                     )
-
                     ExposedDropdownMenu(
                         expanded = expandedDegree,
                         onDismissRequest = { expandedDegree = false }
@@ -88,7 +86,6 @@ class ContactTeacherScreen {
                         }
                     }
                 }
-
                 ExposedDropdownMenuBox(
                     expanded = expandedCourse,
                     onExpandedChange = { expandedCourse = !expandedCourse }
@@ -119,11 +116,7 @@ class ContactTeacherScreen {
                                 }
                             )
                         }
-
-
                     }
-
-
                 }
 
                 if (selectedDegree.isNotEmpty() && selectedCourse.isNotEmpty()) {
@@ -149,9 +142,7 @@ class ContactTeacherScreen {
                         )
                     }
                 }
-
             }
-
         }
     }
 }
