@@ -102,132 +102,37 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun ContactTeacherScreen(navController: NavController) {
-        var teacherDB: FirebaseDBHelper = FirebaseDBHelper()
-        var teacherList: List<FirebaseDBHelper.Teacher> = teacherDB.getTeachers()
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
 
-        var selectedDegree by remember { mutableStateOf("") }
-        var selectedCourse by remember { mutableStateOf("") }
-        var expandedDegree by remember { mutableStateOf(false) }
-        var expandedCourse by remember { mutableStateOf(false) }
-        var degrees: ArrayList<String> = ArrayList<String>();
-        teacherList.forEach { e ->
-            degrees.addAll(e.degree)
-        }
-        var courses: ArrayList<String> = ArrayList<String>();
-        teacherList.forEach { e ->
-            courses.addAll(e.courses)
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            gesturesEnabled = true,
+            drawerContent = {
+                SideMenu(navController = navController, drawerState = drawerState)
+            }
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ExposedDropdownMenuBox(
-                    expanded = expandedDegree,
-                    onExpandedChange = { expandedDegree = !expandedDegree }
-                ) {
-                    OutlinedTextField(
-                        value = selectedDegree,
-                        onValueChange = { },
-                        readOnly = true,
-                        label = { Text("Degree") },
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedDegree)
+            Scaffold(
+                topBar = {
+                    CustomTopBar(
+                        onMenuClick = {
+                            scope.launch {
+                                drawerState.open()
+                            }
                         },
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth()
+                        navController = navController
                     )
-
-                    ExposedDropdownMenu(
-                        expanded = expandedDegree,
-                        onDismissRequest = { expandedDegree = false }
-                    ) {
-                        degrees.forEach { degree ->
-                            DropdownMenuItem(
-                                text = { Text(degree) },
-                                onClick = {
-                                    selectedDegree = degree
-                                    expandedDegree = false
-                                }
-                            )
-                        }
-                    }
                 }
 
-                ExposedDropdownMenuBox(
-                    expanded = expandedCourse,
-                    onExpandedChange = { expandedCourse = !expandedCourse }
-                ) {
-                    OutlinedTextField(
-                        value = selectedCourse,
-                        onValueChange = { },
-                        readOnly = true,
-                        label = { Text("Course") },
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCourse)
-                        },
-                        modifier = Modifier
-                            .menuAnchor()
-                            .fillMaxWidth()
-                    )
-
-                    ExposedDropdownMenu(
-                        expanded = expandedCourse,
-                        onDismissRequest = { expandedCourse = false }
-                    ) {
-                        courses.forEach { course ->
-                            DropdownMenuItem(
-                                text = { Text(course) },
-                                onClick = {
-                                    selectedCourse = course
-                                    expandedCourse = false
-                                }
-                            )
-                        }
-
-
-                    }
-
-
+            ) { innerPadding ->
+                // Main content goes here
+                Box(modifier = Modifier.padding(innerPadding)) {
+                   ContactTeacherScreen().ContactTeacherScreen()
                 }
-
-                if (selectedDegree.isNotEmpty() && selectedCourse.isNotEmpty()) {
-                    var selectedTeacher: FirebaseDBHelper.Teacher? = null
-
-                    teacherList.forEach { teacher ->
-                        if (teacher.courses.contains(selectedCourse) && teacher.degree.contains(
-                                selectedDegree
-                            )
-                        ) {
-                            selectedTeacher = teacher
-                        }
-                    }
-                    if (selectedTeacher != null) {
-
-                        Text(
-                            text = selectedTeacher!!.name
-
-                        )
-                        Text(
-                            text = "Email:"+ selectedTeacher!!.email
-
-                        )
-                    }
-                }
-
             }
 
         }
+
     }
 
     @Composable
@@ -519,10 +424,8 @@ class MainActivity : ComponentActivity() {
                         },
                         navController = navController
                     )
-                },
-                bottomBar = {
-                    BottomNavigationBar(navController)
                 }
+
             ) { innerPadding ->
                 // Main content goes here
                 Box(modifier = Modifier.padding(innerPadding)) {
@@ -658,36 +561,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun BottomNavigationBar(navController: NavController) {
-        BottomAppBar(
-            containerColor = MaterialTheme.colorScheme.primary
-        ) {
-            IconButton(onClick = { navController.navigate("start") }) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Home",
-                    tint = Color.White
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f, true))
-            IconButton(onClick = { navController.navigate("map") }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Map",
-                    tint = Color.White
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f, true))
-            IconButton(onClick = { navController.navigate("info") }) {
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = "Info",
-                    tint = Color.White
-                )
-            }
-        }
-    }
 
 
     @Composable
