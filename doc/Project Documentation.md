@@ -95,6 +95,47 @@ The app must also satisfy the following non-functional criteria:
 5. **Availability:**  
    - Maintain uptime of 99.9% during academic sessions.
 
+--- 
+
+### **Hardware and Software Requirements**
+
+#### **Hardware Requirements**  
+ErasmusGo is a lightweight application designed to run efficiently on standard devices:
+
+1. **For Students and Administrators (Mobile App Users):**  
+   - **Device Type:** Smartphone or Tablet  
+   - **Operating System:** Android 6.0+ or iOS 12.0+  
+   - **RAM:** 1 GB or more  
+   - **Processor:** Dual-core (1.0 GHz or higher)  
+   - **Storage Space:** Minimum 50 MB for app installation  
+   - **Internet Connection:** Wi-Fi or mobile data (2G or higher)  
+
+2. **For Backend Hosting:**  
+   - **Server Specifications (Cloud or Local):**  
+     - **Processor:** Dual-core CPU (2.0 GHz or higher)  
+     - **RAM:** 4 GB  
+     - **Storage:** 10 GB available for database and app resources  
+     - **Network Bandwidth:** 10 Mbps or higher  
+
+---
+
+#### **Software Requirements**  
+1. **For App Development:**  
+   - **Frontend:** Kotlin (Jetpack Compose)  
+   - **Backend:** Firebase for authentication and cloud storage  
+   - **Database:** SQLite (local storage)  
+   - **Development Tools:** Android Studio (latest version)  
+
+2. **For App Users (Students and Admins):**  
+   - **App Compatibility:**  
+     - Android 6.0+ or iOS 12.0+  
+     - Firebase Authentication for secure login  
+
+3. **For Server Hosting:**  
+   - **Cloud Service Provider:** Firebase (no dedicated server required for small-scale operations)  
+
+This setup ensures that ErasmusGo operates smoothly on common school devices without requiring advanced hardware or software infrastructure.
+
 ---
 
 ## **System Architecture**
@@ -357,3 +398,21 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   3. App publishes the event.  
 - **Postconditions:**  
   - Event appears in the "Upcoming Events" section.
+
+--- 
+
+## **Functional Wireframes and Workflow**
+
+We created [functional wireframes using Figma](https://www.figma.com/design/W71VG7fzaUZVvqL68tqUmb/ErasmusGO?node-id=0-1&t=aHw2Vh18XATTNCml-1) to visualize and represent how the ErasmusGo app operates. The wireframes include two main workflows:  
+
+1. **Erasmus Student Workflow:**  
+   - This set of wireframes outlines the app's functionality from the perspective of a general Erasmus student.  
+   - It demonstrates key features such as registration, login, profile management, campus navigation, event access, and communication tools.  
+
+2. **Administrator Workflow:**  
+   - A separate dashboard screen dedicated to administrators using the app.  
+   - It showcases administrative functionalities, including modifying user information (e.g., updating a student's name or email) and managing app content such as events.  
+
+These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
+
+# Important: if Administrator dashboard is not necessary, delete all appearances of this functionality in this documentation file.

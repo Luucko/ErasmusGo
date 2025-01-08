@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,6 +18,8 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,8 +32,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import com.google.firebase.database.FirebaseDatabase
+
 import com.howest.erasmuswelcome.CountryFetcher.Companion.fetchCountries
 
 
@@ -67,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             //NewStudentScreen(navController = navController)
                         }
                         composable("my_account") {
-                            //MyAccountScreen(navController = navController)
+                            MyAccountScreen(navController = navController)
                         }
                         composable("communication") {
                             ContactTeacherScreen(navController = navController)
@@ -313,6 +318,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun RegisterScreen(dbHelper: DBHelper, navController: NavController) {
@@ -385,22 +391,27 @@ class MainActivity : ComponentActivity() {
                 )
 
                 // Country Dropdown
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
+                Box(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     OutlinedTextField(
                         value = country,
-                        onValueChange = { },
+                        onValueChange = {},
                         readOnly = true,
                         label = { Text("Country") },
                         trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                            Icon(
+                                imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                                contentDescription = if (expanded) "Collapse" else "Expand",
+                                modifier = Modifier.clickable { expanded = !expanded }
+                            )
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { expanded = true } // Toggle dropdown on field click
                     )
 
-                    ExposedDropdownMenu(
+                    DropdownMenu(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
@@ -500,11 +511,14 @@ class MainActivity : ComponentActivity() {
         ) {
             Scaffold(
                 topBar = {
-                    CustomTopBar {
-                        scope.launch {
-                            drawerState.open()
-                        }
-                    }
+                    CustomTopBar(
+                        onMenuClick = {
+                            scope.launch {
+                                drawerState.open()
+                            }
+                        },
+                        navController = navController
+                    )
                 },
                 bottomBar = {
                     BottomNavigationBar(navController)
@@ -519,7 +533,64 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun CustomTopBar(onMenuClick: () -> Unit) {
+    fun MyAccountScreen(navController: NavController) {
+        val name = "John Doe" // Replace with the actual name fetched from user data
+        val email = "john.doe@example.com" // Replace with the actual email fetched from user data
+        val country = "Belgium" // Replace with the actual country fetched from user data
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .background(MaterialTheme.colorScheme.primary, shape = MaterialTheme.shapes.medium),
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Text(
+                    text = email,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                Text(
+                    text = country,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Button(
+                    onClick = {
+                        navController.navigate("login") // Navigate to login screen or logout
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Log Out")
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun CustomTopBar(onMenuClick: () -> Unit, navController: NavController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -536,12 +607,10 @@ class MainActivity : ComponentActivity() {
                 color = Color.White,
                 style = MaterialTheme.typography.titleLarge
             )
-            IconButton(onClick = { /* Handle profile click */ }) {
-                Icon(
-                    Icons.Default.AccountCircle,
-                    contentDescription = "Profile",
-                    tint = Color.White
-                )
+
+           
+            IconButton(onClick = { navController.navigate("my_account") }) {
+                Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
             }
         }
     }
@@ -568,7 +637,6 @@ class MainActivity : ComponentActivity() {
                 "communication" to "communication",
                 "calender" to "campus_life",
                 "campus_map" to "campus_life",
-                "my_account" to "my_account",
                 "meetings" to "communication",
                 "events" to "events",
                 "other_students" to "admin_tools",
