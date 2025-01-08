@@ -15,10 +15,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
     // Firebase instances
     private val auth: FirebaseAuth = FirebaseAuth.getInstance();
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("users");
+    private val databaseUsers: DatabaseReference = FirebaseDatabase.getInstance().getReference("users");
+
+    private val databaseTeachers: DatabaseReference = FirebaseDatabase.getInstance().getReference("teachers");
 
     // Data class for User
-    data class User(val id: Int, val name: String, val password: String, val country: String, val email: String);
+    data class User(val id: Int, val name: String, val password: String, val country: String, val email: String)
 
     companion object {
         private const val DATABASE_NAME = "my_database.db";
@@ -26,11 +28,15 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
+
         try {
             db?.execSQL("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, country TEXT, email TEXT)");
         } catch (e: SQLException) {
             e.printStackTrace();
         }
+
+
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
