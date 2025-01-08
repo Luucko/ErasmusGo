@@ -32,12 +32,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import com.google.firebase.database.FirebaseDatabase
+
 import com.howest.erasmuswelcome.CountryFetcher.Companion.fetchCountries
 
 
 class MainActivity : ComponentActivity() {
 
     private var user: DBHelper.User? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +75,7 @@ class MainActivity : ComponentActivity() {
                             MyAccountScreen(navController = navController)
                         }
                         composable("communication") {
-                            //AcademicsScreen(navController = navController)
+                            ContactTeacherScreen(navController = navController)
                         }
                         composable("campus_life") {
                             //CampusLifeScreen(navController = navController)
@@ -92,6 +97,139 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ContactTeacherScreen(navController: NavController) {
+        var teacherDB: FirebaseDBHelper = FirebaseDBHelper()
+        var teacherList: List<FirebaseDBHelper.Teacher> = teacherDB.getTeachers()
+
+        var selectedDegree by remember { mutableStateOf("") }
+        var selectedCourse by remember { mutableStateOf("") }
+        var expandedDegree by remember { mutableStateOf(false) }
+        var expandedCourse by remember { mutableStateOf(false) }
+        var degrees: ArrayList<String> = ArrayList<String>();
+        teacherList.forEach { e ->
+            degrees.addAll(e.degree)
+        }
+        var courses: ArrayList<String> = ArrayList<String>();
+        teacherList.forEach { e ->
+            courses.addAll(e.courses)
+        }
+
+
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                ExposedDropdownMenuBox(
+                    expanded = expandedDegree,
+                    onExpandedChange = { expandedDegree = !expandedDegree }
+                ) {
+                    OutlinedTextField(
+                        value = selectedDegree,
+                        onValueChange = { },
+                        readOnly = true,
+                        label = { Text("Degree") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedDegree)
+                        },
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expandedDegree,
+                        onDismissRequest = { expandedDegree = false }
+                    ) {
+                        degrees.forEach { degree ->
+                            DropdownMenuItem(
+                                text = { Text(degree) },
+                                onClick = {
+                                    selectedDegree = degree
+                                    expandedDegree = false
+                                }
+                            )
+                        }
+                    }
+                }
+
+                ExposedDropdownMenuBox(
+                    expanded = expandedCourse,
+                    onExpandedChange = { expandedCourse = !expandedCourse }
+                ) {
+                    OutlinedTextField(
+                        value = selectedCourse,
+                        onValueChange = { },
+                        readOnly = true,
+                        label = { Text("Course") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCourse)
+                        },
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expandedCourse,
+                        onDismissRequest = { expandedCourse = false }
+                    ) {
+                        courses.forEach { course ->
+                            DropdownMenuItem(
+                                text = { Text(course) },
+                                onClick = {
+                                    selectedCourse = course
+                                    expandedCourse = false
+                                }
+                            )
+                        }
+
+
+                    }
+
+
+                }
+
+                if (selectedDegree.isNotEmpty() && selectedCourse.isNotEmpty()) {
+                    var selectedTeacher: FirebaseDBHelper.Teacher? = null
+
+                    teacherList.forEach { teacher ->
+                        if (teacher.courses.contains(selectedCourse) && teacher.degree.contains(
+                                selectedDegree
+                            )
+                        ) {
+                            selectedTeacher = teacher
+                        }
+                    }
+                    if (selectedTeacher != null) {
+
+                        Text(
+                            text = selectedTeacher!!.name
+
+                        )
+                        Text(
+                            text = "Email:"+ selectedTeacher!!.email
+
+                        )
+                    }
+                }
+
+            }
+
+        }
+    }
+
     @Composable
     fun LoginScreen(dbHelper: DBHelper, navController: NavController) {
         var name by remember { mutableStateOf("") }
@@ -180,12 +318,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun RegisterScreen(dbHelper: DBHelper, navController: NavController) {
         var name by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var confirmPassword by remember { mutableStateOf("") }
-        var country by remember { mutableStateOf("") }
+        var country by remember { mutableStateOf("Portugal") }
         var email by remember { mutableStateOf("") }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var successMessage by remember { mutableStateOf<String?>(null) }
@@ -194,12 +334,15 @@ class MainActivity : ComponentActivity() {
         var countryList by remember { mutableStateOf<List<String>>(emptyList()) }
 
         // Fetch the countries using CountryFetcher
+
         LaunchedEffect(countryList) {
             fetchCountries { fetchedCountries ->
                 if (fetchedCountries != null) {
                     countryList = fetchedCountries
+
                 } else {
                     errorMessage = "Failed to load countries"
+
                 }
             }
         }
@@ -272,6 +415,9 @@ class MainActivity : ComponentActivity() {
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
+                        println("liste wird geprintet")
+                        println(countryList)
+
                         countryList.forEach { countryName ->
                             DropdownMenuItem(
                                 text = { Text(countryName) },
@@ -461,6 +607,8 @@ class MainActivity : ComponentActivity() {
                 color = Color.White,
                 style = MaterialTheme.typography.titleLarge
             )
+
+           
             IconButton(onClick = { navController.navigate("my_account") }) {
                 Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
             }
@@ -477,7 +625,11 @@ class MainActivity : ComponentActivity() {
                 .background(Color.LightGray)
                 .padding(16.dp)
         ) {
-            Text("Menu", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(bottom = 16.dp))
+            Text(
+                "Menu",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
 
             val menuItems = listOf(
                 "home" to "start",
@@ -536,6 +688,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 
     @Composable
     fun Greeting(name: String) {
