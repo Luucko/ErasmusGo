@@ -8,6 +8,7 @@ import java.util.logging.Logger
 
 class CountryFetcher {
     companion object {
+
         private val logger: Logger = Logger.getLogger(CountryFetcher::class.java.name)
 
         fun fetchCountries(callback: (List<String>?) -> Unit) {

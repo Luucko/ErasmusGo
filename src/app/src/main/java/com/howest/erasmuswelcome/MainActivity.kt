@@ -18,7 +18,6 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,8 +30,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
-import com.howest.erasmuswelcome.CountryFetcher.Companion.fetchCountries
 import com.howest.erasmuswelcome.Screens.AccountActivationScreen
+import com.howest.erasmuswelcome.Screens.CalenderScreen
 import com.howest.erasmuswelcome.Screens.CampusMapScreen
 import com.howest.erasmuswelcome.Screens.ContactTeacherScreen
 import com.howest.erasmuswelcome.Screens.DiscountScreen
@@ -52,7 +51,11 @@ class MainActivity : ComponentActivity() {
 
         val dbHelper = DBHelper(this)
 
+
+
         setContent {
+            val countrydata=CountryData()
+            countrydata.loadData()
             ErasmuswelcomeTheme {
                 val navController = rememberNavController()
 
@@ -73,7 +76,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("find_Peers") {
                             defaultScreen(navController = navController,
-                                FindPeersScreen()
+                                FindPeersScreen(countrydata)
                             )  }
                         composable("my_account") {
                             MyAccountScreen(navController = navController)
@@ -90,7 +93,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("calender") {
                             defaultScreen(navController =navController,
-                                AccountActivationScreen()
+                                CalenderScreen()
                             )
                         }
                         composable("campus_map") {
@@ -113,10 +116,9 @@ class MainActivity : ComponentActivity() {
                         composable("upcoming_events") {
                             defaultScreen(navController =navController,
                                 EventsScreen()
-                            ) }
-                        composable("admin_tools") {
-                            //AdminToolsScreen(navController = navController)
+                            )
                         }
+
                     }
                 }
             }
@@ -262,17 +264,7 @@ class MainActivity : ComponentActivity() {
 
         // Fetch the countries using CountryFetcher
 
-        LaunchedEffect(countryList) {
-            fetchCountries { fetchedCountries ->
-                if (fetchedCountries != null) {
-                    countryList = fetchedCountries
 
-                } else {
-                    errorMessage = "Failed to load countries"
-
-                }
-            }
-        }
 
         Box(
             modifier = Modifier
@@ -568,7 +560,8 @@ class MainActivity : ComponentActivity() {
                 "Discounts" to "discounts",
                 "Language" to "language",
                 "Upcoming Events" to "upcoming_events",
-                "other students" to "admin_tools",
+                "Logout" to "login"
+
 
             )
 
