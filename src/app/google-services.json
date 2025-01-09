@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "838305976025",
-    "project_id": "erasmusgo-81e11",
-    "storage_bucket": "erasmusgo-81e11.firebasestorage.app"
+    "project_number": "873297744111",
+    "firebase_url": "https://erasmusgo-2f438-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "erasmusgo-2f438",
+    "storage_bucket": "erasmusgo-2f438.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:838305976025:android:671b82817203cfcdea78c8",
+        "mobilesdk_app_id": "1:873297744111:android:a12056f2b952d9c2530b1a",
         "android_client_info": {
           "package_name": "com.howest.erasmuswelcome"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC4oWaNjoX6SjlyuW0nvtVls64l8lITyJw"
+          "current_key": "AIzaSyCDupKhneeo4uKxAEAv2_dYu2OraVaX2gs"
         }
       ],
       "services": {
