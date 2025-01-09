@@ -41,7 +41,6 @@ The Erasmus exchange experience can be overwhelming for international students u
 The key stakeholders for ErasmusGo are:  
 - **Erasmus Students:** The primary users, benefiting from the app’s features to facilitate their stay.  
 - **University Staff and Professors:** Secondary users providing data and managing student-related interactions.  
-- **Administrators:** Responsible for maintaining app accuracy by updating profiles, events, and other critical information.
 
 ---
 
@@ -52,11 +51,10 @@ The app must meet the following functional requirements:
    - Password recovery functionality for forgotten credentials.  
 
 2. **Profile Management:**  
-   - Students can update their profiles with personal details and photos.  
-   - Administrators can modify student profiles when necessary.  
+   - Students can update their profiles with personal details such as their profile picture.  
 
-3. **Campus Navigation:**  
-   - Provide maps for classroom locations.  
+3. **Campus Navigation:** 
+   - Provide maps for building and classroom locations.
    - Steps for activating university accounts.  
 
 4. **Communication Features:**  
@@ -65,7 +63,6 @@ The app must meet the following functional requirements:
 
 5. **Event Management:**  
    - View upcoming events and activities.  
-   - Administrators can upload new events.  
 
 6. **Academic Calendar and Transportation Information:**  
    - Provide key dates and holidays.  
@@ -102,12 +99,12 @@ The app must also satisfy the following non-functional criteria:
 #### **Hardware Requirements**  
 ErasmusGo is a lightweight application designed to run efficiently on standard devices:
 
-1. **For Students and Administrators (Mobile App Users):**  
+1. **For Students (Mobile App Users):**  
    - **Device Type:** Smartphone or Tablet  
    - **Operating System:** Android 6.0+ or iOS 12.0+  
    - **RAM:** 1 GB or more  
    - **Processor:** Dual-core (1.0 GHz or higher)  
-   - **Storage Space:** Minimum 50 MB for app installation  
+   - **Storage Space:** Minimum 20 MB for app installation  
    - **Internet Connection:** Wi-Fi or mobile data (2G or higher)  
 
 2. **For Backend Hosting:**  
@@ -126,7 +123,7 @@ ErasmusGo is a lightweight application designed to run efficiently on standard d
    - **Database:** SQLite (local storage)  
    - **Development Tools:** Android Studio (latest version)  
 
-2. **For App Users (Students and Admins):**  
+2. **For App Users:**  
    - **App Compatibility:**  
      - Android 6.0+ or iOS 12.0+  
      - Firebase Authentication for secure login  
@@ -186,7 +183,7 @@ To correctly define our work, we created user stories for the different stakehol
 ### **Must have**: Essential to launch the app.
 - As a new Erasmus student, I want to register an account using my email so that I can access the app’s features.
 - As a new Erasmus student, I want to be able to login to my personal account.
-- As a new Erasmus student, I want to recover my password if I forget it so that I can regain access without contacting an administrator.
+- As a new Erasmus student, I want to recover my password if I forget it so that I can regain access.
 - As a new Erasmus student, I want to complete my profile with my name, photo, email, and nationality so that I can identify myself within the application.
 
 ### **Should have**: Useful features.
@@ -195,14 +192,12 @@ To correctly define our work, we created user stories for the different stakehol
 - As a student, I want to access a calendar with holidays and important dates, so that I stay organized.
 - As a non-native Portuguese-speaking student, I want to learn some basic Portuguese to survive and to receive information on how to learn more Portuguese.
 - As a student, I want to find out how I can get to school using public transport, so I can plan my commute.
-- As an administrator, I want to be able to change a student’s information if necessary, so that the data remains accurate. 
 
 ### **Could have**: Nice-to-have features.
 - As a new Erasmus student, I want to locate classrooms on a map, so that I can find my classes easily.
 - As a student, I want to view a list of upcoming events, so I can participate and meet others.
 - As a student from another country, I want to find others from my country, so that I can connect with them.
 - As a student, I want to know what discounts I qualify for by being a student, so that I can save money.
-- As an administrator, I want to be able to add new upcoming events, so that the Erasmus students can see them in their calendars. 
 
 ### **Won’t have** (for now): Features you defer to later iterations.
 - /
@@ -287,8 +282,6 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
 - **Priority:** Should  
 - **Actor:** Student  
 - **Goal:** Provide an academic calendar with important dates.  
-- **Preconditions:**  
-  - Administrator has uploaded calendar data.  
 - **Main Flow:**  
   1. Student opens the "Academic Calendar" section.  
   2. App displays a calendar view with marked holidays and events.  
@@ -318,25 +311,6 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   2. App displays routes, schedules, and commute tips.  
 - **Postconditions:**  
   - Student plans their commute to campus.
-
-#### **Use Case: Edit Student Information**  
-- **Priority:** Should  
-- **Actor:** Administrator  
-- **Goal:** Allow administrators to update or correct student information.  
-- **Preconditions:**  
-  - Administrator is logged into the app.  
-  - Student account exists in the database.  
-- **Main Flow:**  
-  1. Administrator navigates to the "Manage Students" section.  
-  2. Administrator searches for a student by name, email, or ID.  
-  3. App displays the student's profile information.  
-  4. Administrator selects "Edit" and updates the necessary fields (e.g., name, nationality, email).  
-  5. Administrator saves the changes.  
-- **Postconditions:**  
-  - Student's information is updated in the database.  
-- **Alternative Path:**  
-  - If the student is not found, display a "Student not found" error message.  
-  - If mandatory fields are incomplete or invalid, prompt the administrator to correct them.  
  
 ### **Could Have (Nice-to-have features):**
 
@@ -356,7 +330,6 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
 - **Priority:** Could  
 - **Actor:** Student  
 - **Goal:** Provide a list of upcoming events and allow registration.  
-- **Preconditions:** Administrator uploads event data.  
 - **Main Flow:**  
   1. Student opens the "Upcoming Events" section.  
   2. App displays event details (name, date, description).  
@@ -386,33 +359,15 @@ Here’s a list of use cases, defined in detail and prioritized by the MoSCoW st
   2. App displays a categorized list (e.g., food, transport).  
 - **Postconditions:**  
   - Student views and utilizes the discounts.
- 
-#### **Use Case: Event Management**
-- **Priority:** Could  
-- **Actor:** Administrator  
-- **Goal:** Allow administrators to upload new events.  
-- **Preconditions:** Administrator has access to the app backend.  
-- **Main Flow:**  
-  1. Administrator navigates to the "Add Event" section.  
-  2. Administrator fills out the event details.  
-  3. App publishes the event.  
-- **Postconditions:**  
-  - Event appears in the "Upcoming Events" section.
 
 --- 
 
 ## **Functional Wireframes and Workflow**
 
-We created [functional wireframes using Figma](https://www.figma.com/design/W71VG7fzaUZVvqL68tqUmb/ErasmusGO?node-id=0-1&t=aHw2Vh18XATTNCml-1) to visualize and represent how the ErasmusGo app operates. The wireframes include two main workflows:  
+We created [functional wireframes using Figma](https://www.figma.com/design/W71VG7fzaUZVvqL68tqUmb/ErasmusGO?node-id=0-1&t=aHw2Vh18XATTNCml-1) to visualize and represent how the ErasmusGo app operates. The wireframes include one main workflow:  
 
-1. **Erasmus Student Workflow:**  
+### **Erasmus Student Workflow:**  
    - This set of wireframes outlines the app's functionality from the perspective of a general Erasmus student.  
    - It demonstrates key features such as registration, login, profile management, campus navigation, event access, and communication tools.  
 
-2. **Administrator Workflow:**  
-   - A separate dashboard screen dedicated to administrators using the app.  
-   - It showcases administrative functionalities, including modifying user information (e.g., updating a student's name or email) and managing app content such as events.  
-
 These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
-
-# Important: if Administrator dashboard is not necessary, delete all appearances of this functionality in this documentation file.
