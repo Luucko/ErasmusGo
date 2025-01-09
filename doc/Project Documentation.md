@@ -39,8 +39,8 @@ The Erasmus exchange experience can be overwhelming for international students u
 
 ### **Stakeholders**
 The key stakeholders for ErasmusGo are:  
-- **Erasmus Students:** The primary users, benefiting from the app’s features to facilitate their stay.  
-- **University Staff and Professors:** Secondary users providing data and managing student-related interactions.  
+- **Erasmus Students:** The users, benefiting from the app’s features to facilitate their stay.  
+- **University Staff and Professors:** For providing data and managing student-related interactions.  
 
 ---
 
