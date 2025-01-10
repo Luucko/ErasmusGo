@@ -371,3 +371,104 @@ We created [functional wireframes using Figma](https://www.figma.com/design/W71V
    - It demonstrates key features such as registration, login, profile management, campus navigation, event access, and communication tools.  
 
 These wireframes provide a clear, step-by-step depiction of the app’s interface and interactions, ensuring the workflows align with user needs and functional requirements.
+
+---
+
+## Diagrams and Models
+
+To ensure a clear and structured representation of the system, we created the following diagrams:
+
+### 1. [**Domain Model**](https://github.com/Luucko/ErasmusGo/blob/main/doc/Domain%20Model%20white.png)
+The domain model provides an abstract view of the main concepts and entities within the ErasmusGo application and their relationships. It highlights how the core elements interact within the system's domain.
+
+### 2. [**Class Diagram**](https://github.com/Luucko/ErasmusGo/blob/main/doc/Class%20Diagram%20white.png)
+The class diagram provides a detailed representation of the application’s structure, illustrating the classes, their attributes, methods, and the relationships between them.
+
+### 3. [**Use Case Diagram**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_Welcome_System_UCD.pdf)
+The use case diagram visually represents the system's functionality by showing the actors and their interactions with the system. It captures the core functionality required to meet user goals. You can find the Legend [**here**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_Welcome_System_UCD_Legend.png).
+
+### 3. **Sequence Diagram**
+The sequence diagram illustrates the dynamic interaction between system components during specific processes. It focuses on the order of messages exchanged to complete a use case. You can find the [**Account Management Flow**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) and the [**Features and Navigation**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) diagrams in the "/doc" folder in this solution.
+
+---
+
+## Tests Carried Out
+
+During the development process, we did not perform formal unit tests. Instead, we focused on rigorous debugging and functionality testing using multiple Android devices and simulations. This ensured that the application operates smoothly across various scenarios and device configurations. Our testing approach allowed us to identify and resolve issues effectively, contributing to the overall stability and reliability of the application.
+
+---
+
+## Mobile Application User Manual
+
+To make the application usage straightforward and accessible to all users, we created a comprehensive **Mobile Application User Manual**. This document provides clear step-by-step guidance on all functionalities, ensuring that users can easily navigate and utilize the application to its fullest potential. You can access the full user manual at the following link: [ErasmusGo User Manual](https://github.com/Luucko/ErasmusGo/blob/main/doc/User_Manual.md).
+
+
+---
+
+## **Aims and Objectives (Fulfilled)**
+
+The primary aim of ErasmusGo is to simplify the onboarding and campus integration process for Erasmus students. Below are the objectives and their fulfillment status:
+
+1. **Provide a streamlined registration process for new Erasmus students.**  
+   ✅ **Fulfilled**: The app allows easy account creation with a secure registration and login system.  
+
+2. **Simplify first-time setup for campus life, including activating student accounts.**  
+   ✅ **Fulfilled**: A detailed guide to activating university accounts is integrated within the app.  
+
+3. **Facilitate communication with professors and peers.**  
+   ✅ **Fulfilled**: Features include professor contact details and a peer-finding tool based on nationality.  
+
+4. **Offer tools like campus maps, academic calendars, and transportation information to ease student transitions.**  
+   ✅ **Fulfilled**: Interactive campus maps, academic calendars, and public transport details are available in the app.  
+
+5. **Provide language support and cultural integration resources.**  
+   ✅ **Partially Fulfilled**: Basic Portuguese learning resources are implemented; cultural integration tools are deferred for future updates.  
+
+---
+
+## **Warnings**
+
+While ErasmusGo aims to be a comprehensive onboarding tool, users should consider the following limitations:
+
+1. **Data Accuracy:**  
+   - Information such as academic calendars, professor contact details, and transportation schedules are subject to change. Ensure you verify critical details with official university resources.  
+
+2. **Dependency on Internet Connection:**  
+   - Many app features, such as contact search and public transport information, require an active internet connection.  
+
+3. **Limited Language Support:**  
+   - The app currently focuses on Portuguese basics. Students requiring advanced support are encouraged to explore external courses.  
+
+4. **Personal Data Security:**  
+   - Users must ensure the privacy of their login credentials. The app employs secure authentication methods, but users are responsible for their account safety.  
+
+---
+
+## **Glossary**
+
+To ensure clarity, here are definitions for key terms used in this document:  
+
+- **Erasmus:** A European Union program that enables students to study or work abroad in participating countries.  
+- **Onboarding:** The process of acclimating new users (students) to their academic and cultural environment.  
+- **Firebase:** A platform developed by Google for building mobile and web applications, used for authentication and cloud storage in ErasmusGo.  
+- **Jetpack Compose:** A modern UI toolkit for building native Android applications.  
+- **SQLite:** A lightweight database used for storing app-related data locally.  
+- **MoSCoW:** A prioritization technique to classify project requirements into Must-have, Should-have, Could-have, and Won’t-have categories.  
+
+---
+
+## **Conclusion**
+
+ErasmusGo addresses the critical challenges faced by incoming Erasmus students by offering a centralized, intuitive platform for essential resources. Its features streamline the registration process, facilitate campus integration, and support effective communication with professors and peers. Although the app has fulfilled most of its primary objectives, areas like advanced language resources and cultural integration remain opportunities for future enhancement.  
+
+Through its seamless design, ErasmusGo empowers students to confidently navigate their academic and cultural transitions, setting a strong foundation for a successful Erasmus experience.  
+
+---
+
+## **Bibliography**
+
+1. Google Firebase Documentation: [https://firebase.google.com/docs](https://firebase.google.com/docs)  
+2. Jetpack Compose Overview: [https://developer.android.com/jetpack/compose](https://developer.android.com/jetpack/compose)  
+3. SQLite Official Website: [https://www.sqlite.org/](https://www.sqlite.org/)  
+4. Erasmus+ Program Guide: [https://erasmus-plus.ec.europa.eu/](https://erasmus-plus.ec.europa.eu/)  
+5. Android Studio User Guide: [https://developer.android.com/studio](https://developer.android.com/studio)  
