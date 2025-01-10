@@ -388,7 +388,7 @@ The class diagram provides a detailed representation of the application’s stru
 The use case diagram visually represents the system's functionality by showing the actors and their interactions with the system. It captures the core functionality required to meet user goals. You can find the Legend [**here**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_Welcome_System_UCD_Legend.png).
 
 ### 3. **Sequence Diagram**
-The sequence diagram illustrates the dynamic interaction between system components during specific processes. It focuses on the order of messages exchanged to complete a use case. You can find the [**Account Management Flow**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) and the [**Features and Navigation**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) diagrams in the "/doc" folder in this solution.
+The sequence diagram illustrates the dynamic interaction between system components during specific processes. It focuses on the order of messages exchanged to complete a use case. You can find the [**Account Management Flow**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) and the [**Features and Navigation**](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Account_Management_Flow_SD.png) diagrams in the "/doc" folder in our solution on GitHub, or by clicking on the links above.
 
 ---
 
@@ -400,8 +400,7 @@ During the development process, we did not perform formal unit tests. Instead, w
 
 ## Mobile Application User Manual
 
-To make the application usage straightforward and accessible to all users, we created a comprehensive **Mobile Application User Manual**. This document provides clear step-by-step guidance on all functionalities, ensuring that users can easily navigate and utilize the application to its fullest potential. You can access the full user manual at the following link: [ErasmusGo User Manual](https://github.com/Luucko/ErasmusGo/blob/main/doc/User_Manual.md).
-
+To make the application usage straightforward and accessible to all users, we created a comprehensive **Mobile Application User Manual**. This document provides clear step-by-step guidance on all functionalities, ensuring that users can easily navigate and utilize the application to its fullest potential. You can access the full user manual at the following link: [ErasmusGo User Manual](https://github.com/Luucko/ErasmusGo/blob/main/doc/ErasmusGO_User_Manual.pdf).
 
 ---
 
