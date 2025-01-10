@@ -64,7 +64,9 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.database)
+    implementation("io.coil-kt:coil-compose:2.2.2")
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

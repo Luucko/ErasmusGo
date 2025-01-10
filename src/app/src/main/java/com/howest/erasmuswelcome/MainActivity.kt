@@ -1,13 +1,12 @@
 package com.howest.erasmuswelcome
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,13 +29,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 import com.howest.erasmuswelcome.Screens.AccountActivationScreen
@@ -47,40 +39,16 @@ import com.howest.erasmuswelcome.Screens.DiscountScreen
 import com.howest.erasmuswelcome.Screens.EventsScreen
 import com.howest.erasmuswelcome.Screens.FindPeersScreen
 import com.howest.erasmuswelcome.Screens.LanguageScreen
+import com.howest.erasmuswelcome.Screens.MyAccountScreen
 import com.howest.erasmuswelcome.Screens.TransportationScreen
-
 
 class MainActivity : ComponentActivity() {
 
     private var user: DBHelper.User? = null
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.addValueEventListener(object: ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = snapshot.getValue<String>()
-                Log.d(TAG, "Value is: " + value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Failed to read value.", error.toException())
-            }
-
-        })
-
         val dbHelper = DBHelper(this)
-
-
 
         setContent {
             val countrydata=CountryData()
@@ -104,60 +72,58 @@ class MainActivity : ComponentActivity() {
                             MainScreen(navController = navController)
                         }
                         composable("find_Peers") {
-                            defaultScreen(navController = navController,
+                            DefaultScreen(navController = navController,
                                 FindPeersScreen(countrydata)
                             )  }
                         composable("my_account") {
-                            MyAccountScreen(navController = navController)
+                            DefaultScreen(navController = navController,
+                                MyAccountScreen(navController)
+                            )
                         }
                         composable("communication") {
-                            defaultScreen(navController = navController,
+                            DefaultScreen(navController = navController,
                                 ContactTeacherScreen()
                             )
                         }
                         composable("account_activation") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 AccountActivationScreen()
                             )
                         }
                         composable("calender") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 CalenderScreen()
                             )
                         }
                         composable("campus_map") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 CampusMapScreen()
                             )}
                         composable("transportation") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 TransportationScreen()
                             )}
-
                         composable("discounts") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 DiscountScreen()
                             )}
                         composable("language") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 LanguageScreen()
                             )}
                         composable("upcoming_events") {
-                            defaultScreen(navController =navController,
+                            DefaultScreen(navController =navController,
                                 EventsScreen()
                             )
                         }
-
                     }
                 }
             }
         }
     }
 
-
-
     @Composable
-    fun defaultScreen(navController: NavController,content:ContentScreen) {
+    fun DefaultScreen(navController: NavController, content:ContentScreen) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         ModalNavigationDrawer(
@@ -275,9 +241,45 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    @Composable
+    fun CountryDropdown(
+        countries: List<String>,
+        selectedCountry: String,
+        onCountrySelected: (String) -> Unit
+    ) {
+        var expanded by remember { mutableStateOf(false) }
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(Color.LightGray, RoundedCornerShape(8.dp))
+                .clickable { expanded = true },
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text(
+                text = if (selectedCountry.isEmpty()) "Country" else selectedCountry,
+                modifier = Modifier.padding(start = 16.dp),
+                color = if (selectedCountry.isEmpty()) Color.Gray else Color.Black
+            )
 
-    @OptIn(ExperimentalMaterial3Api::class)
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                countries.forEach { country ->
+                    DropdownMenuItem(
+                        onClick = {
+                            onCountrySelected(country)
+                            expanded = false
+                        },
+                        text = { Text(country) }
+                    )
+                }
+            }
+        }
+    }
+
     @Composable
     fun RegisterScreen(dbHelper: DBHelper, navController: NavController) {
         var name by remember { mutableStateOf("") }
@@ -290,10 +292,6 @@ class MainActivity : ComponentActivity() {
         var loading by remember { mutableStateOf(false) }
         var expanded by remember { mutableStateOf(false) }
         var countryList by remember { mutableStateOf<List<String>>(emptyList()) }
-
-        // Fetch the countries using CountryFetcher
-
-
 
         Box(
             modifier = Modifier
@@ -479,63 +477,6 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MyAccountScreen(navController: NavController) {
-        val name = "John Doe" // Replace with the actual name fetched from user data
-        val email = "john.doe@example.com" // Replace with the actual email fetched from user data
-        val country = "Belgium" // Replace with the actual country fetched from user data
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            contentAlignment = Alignment.TopCenter
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Profile Picture",
-                    modifier = Modifier
-                        .size(120.dp)
-                        .background(MaterialTheme.colorScheme.primary, shape = MaterialTheme.shapes.medium),
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary
-                )
-
-                Text(
-                    text = email,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-
-                Text(
-                    text = country,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                Button(
-                    onClick = {
-                        navController.navigate("login") // Navigate to login screen or logout
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Log Out")
-                }
-            }
-        }
-    }
-
-    @Composable
     fun CustomTopBar(onMenuClick: () -> Unit, navController: NavController) {
         Row(
             modifier = Modifier
@@ -553,8 +494,6 @@ class MainActivity : ComponentActivity() {
                 color = Color.White,
                 style = MaterialTheme.typography.titleLarge
             )
-
-           
             IconButton(onClick = { navController.navigate("my_account") }) {
                 Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
             }
@@ -579,7 +518,6 @@ class MainActivity : ComponentActivity() {
 
             val menuItems = listOf(
                 "home" to "start",
-                "login" to "login",
                 "Contact Teachers" to "communication",
                 "Find Peers" to "find_Peers",
                 "Account activation" to "account_activation",
@@ -607,8 +545,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
-
     @Composable
     fun Greeting(name: String) {
         Box(
@@ -618,6 +554,4 @@ class MainActivity : ComponentActivity() {
             Text(text = "Hello $name!")
         }
     }
-
-
 }

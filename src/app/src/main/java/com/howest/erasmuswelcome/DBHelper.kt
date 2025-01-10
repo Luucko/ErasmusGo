@@ -10,14 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     // Firebase instances
     private val auth: FirebaseAuth = FirebaseAuth.getInstance();
     private val databaseUsers: DatabaseReference = FirebaseDatabase.getInstance().getReference("users");
-
-    private val databaseTeachers: DatabaseReference = FirebaseDatabase.getInstance().getReference("teachers");
 
     // Data class for User
     data class User(val id: Int, val name: String, val password: String, val country: String, val email: String)
@@ -50,13 +50,17 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
     fun addUser(name: String, password: String, country: String, email: String) {
         val db = writableDatabase;
+        val values = ContentValues().apply {
+            put("name", name);
+            put("password", password);
+            put("country", country);
+            put("email", email);
+        };
+        val database = Firebase.database
+        val myRef = database.getReference("Users")
+
+        myRef.setValue(values)
         try {
-            val values = ContentValues().apply {
-                put("name", name);
-                put("password", password);
-                put("country", country);
-                put("email", email);
-            };
             db.insert("users", null, values);
         } catch (e: SQLException) {
             e.printStackTrace();

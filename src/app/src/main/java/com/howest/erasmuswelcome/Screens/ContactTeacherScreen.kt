@@ -15,22 +15,53 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.howest.erasmuswelcome.ContentScreen
-import com.howest.erasmuswelcome.FirebaseDBHelper
+import com.howest.erasmuswelcome.Screens.EventsScreen.Event
+import kotlinx.coroutines.tasks.await
 
 class ContactTeacherScreen : ContentScreen {
+
+    data class Teacher(val id: Int,val name:String , val email: String,val degree:List<String>,val courses:List<String>);
+
+    private suspend fun fetchTeachers(): List<Teacher> {
+        val database = Firebase.database
+        val teacherRef = database.getReference("Teacher")
+        val teachers = mutableListOf<Teacher>()
+
+        try {
+            val snapshot = teacherRef.get().await()
+            for (child in snapshot.children) {
+                val teacher = child.getValue(Teacher::class.java)
+                if (teacher != null) {
+                    teachers.add(teacher)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return teachers
+    }
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun DrawContent() {
-        var teacherDB: FirebaseDBHelper = FirebaseDBHelper()
-        var teacherList: List<FirebaseDBHelper.Teacher> = teacherDB.getTeachers()
+        val teacherList = remember { mutableStateListOf<Teacher>() }
+
+        LaunchedEffect(Unit) {
+            val fetchedTeacher = fetchTeachers()
+            teacherList.addAll(fetchedTeacher)
+        }
 
         var selectedDegree by remember { mutableStateOf("") }
         var selectedCourse by remember { mutableStateOf("") }
@@ -102,7 +133,6 @@ class ContactTeacherScreen : ContentScreen {
                             .menuAnchor()
                             .fillMaxWidth()
                     )
-
                     ExposedDropdownMenu(
                         expanded = expandedCourse,
                         onDismissRequest = { expandedCourse = false }
@@ -120,7 +150,7 @@ class ContactTeacherScreen : ContentScreen {
                 }
 
                 if (selectedDegree.isNotEmpty() && selectedCourse.isNotEmpty()) {
-                    var selectedTeacher: FirebaseDBHelper.Teacher? = null
+                    var selectedTeacher:Teacher? = null
 
                     teacherList.forEach { teacher ->
                         if (teacher.courses.contains(selectedCourse) && teacher.degree.contains(
@@ -134,11 +164,9 @@ class ContactTeacherScreen : ContentScreen {
 
                         Text(
                             text = selectedTeacher!!.name
-
                         )
                         Text(
                             text = "Email:"+ selectedTeacher!!.email
-
                         )
                     }
                 }

@@ -1,5 +1,6 @@
 package com.howest.erasmuswelcome.Screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import com.howest.erasmuswelcome.ContentScreen
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
+import coil.compose.rememberImagePainter
 
 class CampusMapScreen : ContentScreen {
     @Composable
@@ -25,7 +27,6 @@ class CampusMapScreen : ContentScreen {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Title
             androidx.compose.material3.Text(
                 text = "Campus Map",
                 style = MaterialTheme.typography.bodyLarge.copy(
@@ -61,16 +62,16 @@ class CampusMapScreen : ContentScreen {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(200.dp)
                     .background(Color.LightGray, shape = RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 // Placeholder text inside the box
-                Text(
-                    text = "Image Placeholder",
-                    color = Color.DarkGray,
-                    fontSize = 14.sp
-                )
+                val imageUrl = "https://ipca.pt/wp-content/uploads/2017/10/Campus-IPCA-2021.jpg"
+                val painter = rememberImagePainter(imageUrl)
+
+
+                Image(painter = painter, contentDescription = "Campus IPCA")
             }
         }
     }

@@ -1,12 +1,16 @@
 package com.howest.erasmuswelcome.Screens
 
+import android.content.ContentValues.TAG
 import androidx.compose.runtime.Composable
 import com.howest.erasmuswelcome.ContentScreen
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -32,35 +42,36 @@ class EventsScreen : ContentScreen {
         val date: String = ""
     )
 
-    // Firebase-Daten abrufen
-    suspend fun fetchEvents(): List<Event> {
-        val db = FirebaseFirestore.getInstance()
+    private suspend fun fetchEvents(): List<Event> {
+        val database = Firebase.database
+        val eventsRef = database.getReference("Events")
         val events = mutableListOf<Event>()
 
         try {
-            val result = db.collection("events").get().await()
-            for (document in result) {
-                val event = document.toObject(Event::class.java)
-                println(event.title)
-                events.add(event)
+            val snapshot = eventsRef.get().await()
+            for (child in snapshot.children) {
+                val event = child.getValue(Event::class.java)
+                if (event != null) {
+                    events.add(event)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return events
 
+        return events
     }
+
+
     @Composable
     override fun DrawContent() {
-        val events = remember { mutableStateListOf<Event>() }
-        val coroutineScope = rememberCoroutineScope()
 
-        // Lade Events bei der Initialisierung
+        val events = remember { mutableStateListOf<Event>() }
+
+        // Lade die Events von der Realtime Database
         LaunchedEffect(Unit) {
-            coroutineScope.launch(Dispatchers.IO) {
-                val fetchedEvents = fetchEvents()
-                events.addAll(fetchedEvents)
-            }
+            val fetchedEvents = fetchEvents()
+            events.addAll(fetchedEvents)
         }
         Scaffold { padding ->
             Column(
@@ -101,39 +112,33 @@ class EventsScreen : ContentScreen {
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
-                Box(
+                EventList(events)
+            }
+        }
+    }
+    @Composable
+    fun EventList(events: List<Event>) {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(events) { event ->
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(150.dp)
-                        .background(Color.Gray)
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                         events.forEach { event ->
-                             Row(
-                                 verticalAlignment = Alignment.CenterVertically,
-                                 horizontalArrangement = Arrangement.spacedBy(16.dp)
-                             ) {
-                                 Box(
-                                     modifier = Modifier
-                                         .size(40.dp)
-                                         .background(Color.White, shape = CircleShape)
-                                 ) {
-                                     Text(
-                                         text = "A",
-                                         modifier = Modifier.align(Alignment.Center)
-                                     )
-                                 }
-                                 Text(text = "List item")
-                             }
-                         }
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(Color.Gray, shape = CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column {
+                        Text(text = event.title, style = MaterialTheme.typography.bodyLarge)
+                        Text(text = event.date, style = MaterialTheme.typography.bodySmall)
                     }
-
-
                 }
             }
         }
     }
+
 }

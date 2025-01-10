@@ -2,9 +2,7 @@ package com.howest.erasmuswelcome.Screens
 
 import androidx.compose.runtime.Composable
 import com.howest.erasmuswelcome.ContentScreen
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.howest.erasmuswelcome.R
+import androidx.compose.ui.res.painterResource
 
 class TransportationScreen : ContentScreen {
     @Composable
@@ -40,7 +40,10 @@ class TransportationScreen : ContentScreen {
                     contentAlignment = Alignment.Center
                 ) {
                     // Placeholder for map (a simple cross)
-                    Text(text = "X", color = Color.White)
+                    val painter = painterResource(id = R.drawable.busstops)
+
+                    // Bild anzeigen
+                    Image(painter = painter, contentDescription = "Campus IPCA")
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))

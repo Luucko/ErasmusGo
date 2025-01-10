@@ -2,9 +2,6 @@ package com.howest.erasmuswelcome.Screens
 
 import androidx.compose.runtime.Composable
 import com.howest.erasmuswelcome.ContentScreen
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
@@ -18,6 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class DiscountScreen : ContentScreen {
+
+    data class discountItem(
+        val title:String="",
+        val description:String="",
+        val disountPercentage: Int =0
+
+    )
     @Composable
     override fun DrawContent() {
         Column(
