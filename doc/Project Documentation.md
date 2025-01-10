@@ -392,6 +392,19 @@ The sequence diagram illustrates the dynamic interaction between system componen
 
 ---
 
+## Tests Carried Out
+
+During the development process, we did not perform formal unit tests. Instead, we focused on rigorous debugging and functionality testing using multiple Android devices and simulations. This ensured that the application operates smoothly across various scenarios and device configurations. Our testing approach allowed us to identify and resolve issues effectively, contributing to the overall stability and reliability of the application.
+
+---
+
+## Mobile Application User Manual
+
+To make the application usage straightforward and accessible to all users, we created a comprehensive **Mobile Application User Manual**. This document provides clear step-by-step guidance on all functionalities, ensuring that users can easily navigate and utilize the application to its fullest potential. You can access the full user manual at the following link: [ErasmusGo User Manual](https://github.com/Luucko/ErasmusGo/blob/main/doc/User_Manual.md).
+
+
+---
+
 ## **Aims and Objectives (Fulfilled)**
 
 The primary aim of ErasmusGo is to simplify the onboarding and campus integration process for Erasmus students. Below are the objectives and their fulfillment status:
