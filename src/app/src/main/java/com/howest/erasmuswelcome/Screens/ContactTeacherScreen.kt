@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -32,7 +33,9 @@ import kotlinx.coroutines.tasks.await
 
 class ContactTeacherScreen : ContentScreen {
 
-    data class Teacher(val id: Int,val name:String , val email: String,val degree:List<String>,val courses:List<String>);
+    data class Teacher(val id: Int=0,val name:String="" , val email: String="",
+                       val degree:List<String> = emptyList(),
+                       val courses:List<String> = emptyList());
 
     private suspend fun fetchTeachers(): List<Teacher> {
         val database = Firebase.database
@@ -102,7 +105,7 @@ class ContactTeacherScreen : ContentScreen {
                             .menuAnchor()
                             .fillMaxWidth()
                     )
-                    ExposedDropdownMenu(
+                    DropdownMenu(
                         expanded = expandedDegree,
                         onDismissRequest = { expandedDegree = false }
                     ) {
@@ -133,7 +136,7 @@ class ContactTeacherScreen : ContentScreen {
                             .menuAnchor()
                             .fillMaxWidth()
                     )
-                    ExposedDropdownMenu(
+                    DropdownMenu(
                         expanded = expandedCourse,
                         onDismissRequest = { expandedCourse = false }
                     ) {

@@ -19,7 +19,9 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.howest.erasmuswelcome.DBHelper.User
 import kotlinx.coroutines.launch
 
 import com.howest.erasmuswelcome.Screens.AccountActivationScreen
@@ -45,13 +48,14 @@ import com.howest.erasmuswelcome.Screens.TransportationScreen
 class MainActivity : ComponentActivity() {
 
     private var user: DBHelper.User? = null
+    private var aktUsers: List<User>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dbHelper = DBHelper(this)
 
         setContent {
-            val countrydata=CountryData()
+            val countrydata = CountryData()
             countrydata.loadData()
             ErasmuswelcomeTheme {
                 val navController = rememberNavController()
@@ -72,47 +76,65 @@ class MainActivity : ComponentActivity() {
                             MainScreen(navController = navController)
                         }
                         composable("find_Peers") {
-                            DefaultScreen(navController = navController,
+                            DefaultScreen(
+                                navController = navController,
                                 FindPeersScreen(countrydata)
-                            )  }
-                        composable("my_account") {
-                            DefaultScreen(navController = navController,
-                                MyAccountScreen(navController)
                             )
                         }
+                        composable("my_account") {
+                            if(user!=null){
+                                DefaultScreen(
+                                    navController = navController,
+                                    MyAccountScreen(navController, user!!)
+                                )
+                            }
+
+                        }
                         composable("communication") {
-                            DefaultScreen(navController = navController,
+                            DefaultScreen(
+                                navController = navController,
                                 ContactTeacherScreen()
                             )
                         }
                         composable("account_activation") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 AccountActivationScreen()
                             )
                         }
                         composable("calender") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 CalenderScreen()
                             )
                         }
                         composable("campus_map") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 CampusMapScreen()
-                            )}
+                            )
+                        }
                         composable("transportation") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 TransportationScreen()
-                            )}
+                            )
+                        }
                         composable("discounts") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 DiscountScreen()
-                            )}
+                            )
+                        }
                         composable("language") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 LanguageScreen()
-                            )}
+                            )
+                        }
                         composable("upcoming_events") {
-                            DefaultScreen(navController =navController,
+                            DefaultScreen(
+                                navController = navController,
                                 EventsScreen()
                             )
                         }
@@ -123,7 +145,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun DefaultScreen(navController: NavController, content:ContentScreen) {
+    fun DefaultScreen(navController: NavController, content: ContentScreen) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         ModalNavigationDrawer(
@@ -203,25 +225,36 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
+                val users = remember { mutableStateListOf<User>() }
+                LaunchedEffect(Unit) {
+                    val fetchedUsers = dbHelper.fetchUsers()
+
+                    users.addAll(fetchedUsers)
+
+                }
+
                 Button(
                     onClick = {
-                        loading = true
-                        errorMessage = null
-                        try {
-                            // Validate credentials with DBHelper
-                            val isMatch = dbHelper.checkPasswordMatch(name, password)
+
+                            loading = true
+                            errorMessage = null
+
+                            val isMatch = dbHelper.checkPasswordMatch(name, password,users)
+                            println(users.size)
                             if (isMatch) {
-                                user = dbHelper.getUserByUsername(name)
+                                users.forEach{item->
+                                    if(item.name==name){
+                                        user=item
+                                    }
+                                }
                                 navController.navigate("start")
                             } else {
                                 errorMessage = "Invalid username or password"
                             }
-                        } catch (e: Exception) {
-                            errorMessage = "Error during login: ${e.message}"
-                        } finally {
+
                             loading = false
-                        }
-                    },
+
+                        },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !loading
                 ) {
@@ -241,6 +274,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     @Composable
     fun CountryDropdown(
         countries: List<String>,
@@ -495,7 +529,11 @@ class MainActivity : ComponentActivity() {
                 style = MaterialTheme.typography.titleLarge
             )
             IconButton(onClick = { navController.navigate("my_account") }) {
-                Icon(Icons.Default.AccountCircle, contentDescription = "Profile", tint = Color.White)
+                Icon(
+                    Icons.Default.AccountCircle,
+                    contentDescription = "Profile",
+                    tint = Color.White
+                )
             }
         }
     }

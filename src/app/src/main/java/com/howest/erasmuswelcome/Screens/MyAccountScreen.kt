@@ -22,16 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.howest.erasmuswelcome.ContentScreen
+import com.howest.erasmuswelcome.DBHelper
 
-class MyAccountScreen(navController: NavController) : ContentScreen {
+class MyAccountScreen(navController: NavController,user: DBHelper.User) : ContentScreen {
     var navController:NavController=navController
+    var user:DBHelper.User=user
     @Composable
     override fun DrawContent() {
 
 
-        val name = "John Doe" // Replace with the actual name fetched from user data
-        val email = "john.doe@example.com" // Replace with the actual email fetched from user data
-        val country = "Belgium" // Replace with the actual country fetched from user data
 
         Box(
             modifier = Modifier
@@ -56,19 +55,19 @@ class MyAccountScreen(navController: NavController) : ContentScreen {
                 )
 
                 Text(
-                    text = name,
+                    text = user.name,
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
-                    text = email,
+                    text = user.email,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
-                    text = country,
+                    text = user.country,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
